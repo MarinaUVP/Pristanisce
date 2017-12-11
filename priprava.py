@@ -94,6 +94,6 @@ def ustvariTabeloPotovanje():
 for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Potovanje"]:
     eval("ustvariTabelo{0}()".format(tabela))
 
-
+import podatki
 
 
