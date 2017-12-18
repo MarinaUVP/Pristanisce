@@ -1,16 +1,14 @@
 %rebase('osnova.html', naslov='hfkl', navigator='/' )
 
-<html>
 
-<body>
-	<h1>Pristanišča</h1> 
+	<h1>Pristanišča</h1>
 	<p>
-	Seznam pristanišč.
+		Seznam pristanišč.
 	</p>
 
+	<!-- Izpis pristanišč -->
+	%for prist in pristanisca:
+	<li>prist</li>
+	%end
 
-</body>
-
-
-
-</html>
+	<a href="/" class="button">Nazaj</a>

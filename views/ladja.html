@@ -1,9 +1,16 @@
 %rebase('osnova.html', naslov='Ladja', navigator='/' )
 
 
-<h1>Iskanje ladij</h1>
+    <h1>Iskanje ladij</h1>
 
-<p>
-Tole bo stran, kjer bo prikazan seznam vseh ladij z njihovimi
-podatki, razen z osebnimi podatki potnikov.
-</p>
+    <p>
+    Tole bo stran, kjer bo prikazan seznam vseh ladij z njihovimi
+    podatki, razen z osebnimi podatki potnikov.
+    </p>
+
+    <!-- Izpis ladij -->
+    %for ladja in ladje:
+    <li>ladja</li>
+    %end
+
+    <a href="/" class="button">Nazaj</a>
