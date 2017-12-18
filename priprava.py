@@ -2,6 +2,7 @@
 
 import sqlite3
 
+
 IME_BAZE = "ladja.db"
 
 # POZOR!!!

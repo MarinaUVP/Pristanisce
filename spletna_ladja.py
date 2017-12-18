@@ -6,31 +6,17 @@ from datetime import datetime
 
 @get('/')
 def glavniMenu():
-    kuzkiTrije = ['Fifo', 'Reks', 'Floki']
-    ladje = ['Reks', 'Titanik', 'Ribič']
-    t = modeli.poisciLadjo('Reks')
-    ladje += [t]
-    return template('glavna.html', ladje=ladje+kuzkiTrije, ime_ladje="FlokiII")
-
-
-@post('/dodaj')
-def dodaj():
-    ime = 'Reksona'
-    leto_izdelave = 1991
-    nosilnost = 12
-    try:
-        modeli.dodajLadjo(ime, leto_izdelave, nosilnost)
-    except Exception as e:
-        print(e)
-    redirect('/')
+    return template('glavna.html')
 
 @get('/ladja')
 def prikaziLadje():
-    return template('ladja.html')
+    vse_ladje = modeli.poisciVseLadje()
+    return template('ladja.html', ladje = vse_ladje)
 
 @get('/pristanisca')
 def prikaziPristanisca():
-    return template('pristanisca.html')
+    pristanisca = modeli.poisciVsaPristanisca()
+    return template('pristanisca.html', pristanisca = pristanisca)
 
 
 @get('/potovanje')
