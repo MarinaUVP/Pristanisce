@@ -1,0 +1,43 @@
+%rebase ('osnova.html', naslov='Ladja', navigator='/')
+    <div class="naslov_strani">
+       Ladje
+    </div>
+
+    <!-- Izpis kužkov-->
+    %for ladja in ladje:
+    <li>{{ladja}}</li>
+    %end
+
+    <!-- Vnos nove ladje-->
+    <div class="naslov_strani">
+        Vnos nove ladje
+    </div>
+
+    <div class="vrstica">
+        <form method="post" action="/dodaj">
+            <table>
+                <tr>
+                    <td class="glava">
+                        Ime ladje:
+                    </td>
+                    <td>
+                        <input type="text" name="emso" value="{{ime_ladje}}"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+
+                    </td>
+                    <td class="gumb_dodaj">
+                        <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </form>
+    </div>
+
+

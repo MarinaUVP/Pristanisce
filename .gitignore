@@ -1,6 +1,10 @@
 # Baze ne vkljuèiva
 .db
 
+# Ostalo
+.auth
+.~*
+
 # Za DIA
 .dia~
 
