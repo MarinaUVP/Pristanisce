@@ -10,7 +10,18 @@
 
     <!-- Izpis ladij -->
     %for ladja in ladje:
-    <li>ladja</li>
+    <li>{{ladja}}</li>
     %end
+    <form method="get" action="/">
+        <button class="gumb">Nazaj</button>
+    </form>
 
-    <a href="/" class="button">Nazaj</a>
+    <!--druga možnost:-->
+    <!--<form>-->
+        <!--<button formaction="/">Nazaj</button>-->
+    <!--</form>-->
+
+    <!--tretja možnost:-->
+    <!--<button onclick="window.history.go(-1)">Nazaj</button>-->
+
+

@@ -2,7 +2,10 @@ import modeli as modeli
 from bottle import *
 from datetime import datetime
 
-
+# S tem naložimo CSS datoteko:
+@get('/static/<filename:path>')
+def static(filename):
+    return static_file(filename, root='static')
 
 @get('/')
 def glavniMenu():

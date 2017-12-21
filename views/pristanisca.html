@@ -1,14 +1,16 @@
 %rebase('osnova.html', naslov='hfkl', navigator='/' )
 
 
-	<h1>Pristanišča</h1>
+	<h1 class="naslov">Pristanišča</h1>
 	<p>
 		Seznam pristanišč.
 	</p>
 
 	<!-- Izpis pristanišč -->
 	%for prist in pristanisca:
-	<li>prist</li>
+	<li>{{prist}}</li>
 	%end
 
-	<a href="/" class="button">Nazaj</a>
+	<form method="get" action="/">
+        <button class="gumb">Nazaj</button>
+    </form>
