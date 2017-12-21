@@ -21,8 +21,6 @@ def poisciVseLadje():
         FROM Ladja""")
     return cur.fetchall()
 
-print(poisciVseLadje())
-
 
 def poisciLadjo(ime):
     """Poišče vse podatke o ladji."""
@@ -30,20 +28,27 @@ def poisciLadjo(ime):
         SELECT id, ime, leto_izdelave, nosilnost
         FROM Ladja
         WHERE ime LIKE ?""", (ime,))
-    print(cur.fetchall())
-    return cur.fetchall()
-
-print(poisciLadjo("Reks"))
+    return cur.fetchone()
 
 def poisciPristanisce(pristanisce):
     """Vrne podatke o pristanišču."""
     cur.execute("""
         SELECT id, pristanisce FROM Pristanisce
         WHERE pristanisce LIKE ?""", (pristanisce,))
-    return cur.fetchall()[0]
+    return cur.fetchone()
 
+def poisciPotnika(ime, priimek):
+    cur.execute("""
+        SELECT emso, ime, priimek FROM Potnik
+        WHERE ime = ? AND PRIIMEK = ?;""", (ime, priimek))
+    return cur.fetchone()
 
+# Izpis iskalnih ukazov
 
+print("Poiščimo vse ladje", poisciVseLadje())
+print(poisciLadjo("Reks"))
+print("Poiščimo vsa pristanišča:", poisciVsaPristanisca())
+print("Poiščimo enega potnika z danim imenom in priimkom", poisciPotnika("Marina", "Kovač"))
 
 
 # Funkcije dodajanja
@@ -64,6 +69,8 @@ def dodajKabino(tip, stevilo_lezisc, cena, ime_ladje, zasedena=False):
         VALUES (?, ?, ?, ?, ?)
         """, (tip, stevilo_lezisc, zasedena, cena, id_ladje))
     con.commit()
+
+
 
 def dodajPristanisce(pristanisce):
     """Doda seznam pristanišč."""
@@ -91,12 +98,12 @@ def dodajPot(zacetno_pristanisce, koncno_pristanisce, trajanje):
         """, (zacetek, konec, trajanje))
     con.commit()
 
-def dodajNacrt_poti(id_ladje, id_poti):
+def dodajNacrt_poti(id_ladje, id_poti, datum):
     """Povezuje ladjo s potjo."""
     cur.execute("""
         INSERT INTO Nacrt_Poti (id_ladje, id_poti)
-        VALUES (?, ?);
-        """, (id_ladje, id_poti))
+        VALUES (?, ?, ?);
+        """, (id_ladje, id_poti, datum))
     con.commit()
 
 def dodajPotovanje(emso, id_ladje, id_poti, id_kabine, datum):

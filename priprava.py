@@ -45,6 +45,14 @@ def ustvariTabeloKabina():
         UNIQUE (id, id_ladje));
         """)
 
+def ustvariTabeloIma_kabino():
+    cur.execute("""
+        CREATE TABLE Ima_kabino (
+        id_kabine           INTEGER REFERENCES Kabina(id),
+        id_ladje            INTEGER REFERENCES Ladja(id),
+        UNIQUE (id, id_ladje);
+        """)
+
 def ustvariTabeloPristanisce():
     cur.execute("""
         CREATE TABLE Pristanisce (
@@ -70,7 +78,8 @@ def ustvariTabeloNacrt_poti():
         id                  INTEGER PRIMARY KEY AUTOINCREMENT,
         id_ladje            INTEGER NOT NULL,
         id_poti             INTEGER NOT NULL,
-        UNIQUE (id_ladje, id_poti),
+        datum               DATE NOT NULL,
+        UNIQUE (id_ladje, id_poti, datum),
         FOREIGN KEY (id_ladje) REFERENCES Ladja(id),
         FOREIGN KEY (id_poti)  REFERENCES Pot(id));
         """)
@@ -82,14 +91,12 @@ def ustvariTabeloPotovanje():
     cur.execute("""
         CREATE TABLE Potovanje (
         emso                INTEGER NOT NULL,
-        id_ladje            INTEGER NOT NULL,
-        id_poti             INTEGER NOT NULL,
+        id_nacrta_poti      INTEGER NOT NULL,
         id_kabine           INTEGER NOT NULL,
-        datum               DATE NOT NULL,
         FOREIGN KEY (emso) REFERENCES Potnik (emso),
-        FOREIGN KEY (id_ladje, id_poti, datum) REFERENCES Nacrt_poti(id_ladje, id_poti, datum),
-        FOREIGN KEY (id_kabine, id_ladje) REFERENCES Kabina(id, id_ladje),
-        PRIMARY KEY (emso, id_poti, datum, id_kabine));
+        FOREIGN KEY (id_nacrta_poti) REFERENCES Nacrt_poti(id),
+        FOREIGN KEY (id_kabine) REFERENCES Kabina(id),
+        PRIMARY KEY (emso, id_nacrta_poti, id_kabine));
         """)
 
 for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Potovanje"]:

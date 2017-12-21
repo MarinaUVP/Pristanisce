@@ -26,12 +26,13 @@ def dodaj():
     dodajPot("Izola", "Koper", 1.4)
 
     # Načrt poti
-    dodajNacrt_poti(1, 1)
+    dodajNacrt_poti(1, 1, "2017-12-08")
 
     # Potovanje
-    dodajPotovanje(1, 1, 1, 1, "2017-12-08") # Kako dodati, če vemo ime potnika, ladje, od kam do kam, datum
+    dodajPotovanje(1, 1, 1, 1) # Kako dodati, če vemo ime potnika, ladje, od kam do kam, datum
 
 try:
+    print("Dodajam podatke")
     dodaj()
-except:
-    pass
+except Exception as e:
+    print("Zgodila se je napaka.", e)
