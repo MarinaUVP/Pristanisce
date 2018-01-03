@@ -1,0 +1,19 @@
+%rebase('osnova.html', naslov='Izpis kabin', navigator='/ Izpis / Kabine' )
+
+
+    <h1>Izpis kabin</h1>
+
+    <!-- Izpis ladij -->
+    %for kabina in kabine:
+    <li>{{kabina}}</li>
+    %end
+    <form method="get" action="/dodaj/kabino">
+        <button class="gumb">Dodaj še eno kabino</button>
+    </form>
+
+    <form method="get" action="/">
+        <button class="gumb">Nazaj</button>
+    </form>
+
+
+

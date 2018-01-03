@@ -1,7 +1,7 @@
-%rebase('osnova.html', naslov='Ladja', navigator='/' )
+%rebase('osnova.html', naslov='Izpis ladij', navigator='/ Izpis / Ladje' )
 
 
-    <h1>Iskanje ladij</h1>
+    <h1>Izpis ladij</h1>
 
     <p>
     Tole bo stran, kjer bo prikazan seznam vseh ladij z njihovimi
@@ -12,6 +12,10 @@
     %for ladja in ladje:
     <li>{{ladja}}</li>
     %end
+    <form method="get" action="/dodaj/ladjo">
+        <button class="gumb">Dodaj še eno ladjo</button>
+    </form>
+
     <form method="get" action="/">
         <button class="gumb">Nazaj</button>
     </form>

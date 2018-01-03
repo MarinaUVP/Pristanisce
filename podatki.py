@@ -6,33 +6,34 @@ from modeli import *
 def dodaj():
     '''Doda različne podatke.'''
 
-    # Dodamo ladjo
+    # Dadje
     dodajLadjo("Reks", 1972, 80)
     dodajLadjo("Titanik", 1920, 400)
+    dodajLadjo("Pršec", 1996, 20)
+    dodajLadjo("Sinji galeb", 1970, 10)
+    dodajLadjo("Volarion", 200, 40)
+    dodajLadjo("Nataša", 1995, 30)
+
 
     # Kabino
-    dodajKabino("enojna", 1, 80, "Reks")
+    dodajKabino("enojna", 4500, 2)
 
     # Pristanišče
     dodajPristanisce("Koper")
     dodajPristanisce("Izola")
+    dodajPristanisce("Rimini")
+    dodajPristanisce("Livorno")
+    dodajPristanisce("Split")
+    dodajPristanisce("Zagreb")
 
     # Potnika
     dodajPotnika(1, "Marina", "Kovač")
     dodajPotnika(2, "Jakob", "Valič")
 
-    # Pot
-    dodajPot("Koper", "Izola", 1)
-    dodajPot("Izola", "Koper", 1.4)
-
-    # Načrt poti
-    dodajNacrt_poti(1, 1, "2017-12-08")
-
-    # Potovanje
-    dodajPotovanje(1, 1, 1, 1) # Kako dodati, če vemo ime potnika, ladje, od kam do kam, datum
 
 try:
-    print("Dodajam podatke")
+    print("Dodajam podatke...")
     dodaj()
+    print("Dodajanje končano.")
 except Exception as e:
     print("Zgodila se je napaka.", e)

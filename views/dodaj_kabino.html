@@ -1,0 +1,52 @@
+%rebase('osnova.html', naslov='Dodajanje kabin', navigator='/ Dodaj / Kabino' )
+
+
+	<h1 class="naslov">Dodajanje Kabin.</h1>
+	<p>
+		Vpišite podatke za kabino, ki jo želite dodati.
+	</p>
+
+    <div class="vrstica">
+      <form method="POST" action="/dodaj/kabino/v_bazo">
+        <table>
+            <tr>
+                <td class="glava">
+                  Število ležišč:
+                </td>
+                <td>
+                  <input type="text" name="stevilo_lezisc" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam ladij</legend>
+                    <p>
+
+                        <label>Izberi ladjo</label>
+                        <select id = "izbira_ladij">
+                            %for ladja in ladje:
+                            %(id, ime, leto_izdelave, nosilnost) = ladja
+                            <option value={{id}}>{{ime}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                    <input type="hidden" name="id_ladje" id="stevilka_ladje"/>
+                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi" onclick="document.getElementById('stevilka_ladje').value = document.getElementById('izbira_ladij').value;"/>
+                </td>
+            </tr>
+        </table>
+
+      </form>
+    </div>
+
+
+	<form method="get" action="/">
+        <button class="gumb">Nazaj</button>
+    </form>

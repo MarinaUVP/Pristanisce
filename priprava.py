@@ -38,8 +38,6 @@ def ustvariTabeloKabina():
         id                  INTEGER PRIMARY KEY AUTOINCREMENT,
         tip                 CHAR NOT NULL,
         stevilo_lezisc      INTEGER NOT NULL,
-        zasedena            BOOLEAN,
-        cena                INTEGER NOT NULL,
         id_ladje            INTEGER NOT NULL,
         FOREIGN KEY(id_ladje)  REFERENCES Ladja(id),
         UNIQUE (id, id_ladje));

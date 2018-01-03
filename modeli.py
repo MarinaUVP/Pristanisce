@@ -5,7 +5,7 @@ BAZA = "ladja.db"
 con = sqlite3.connect(BAZA)
 cur = con.cursor()
 
-# Funkcije iskanja
+############### POIZVEDBE ################
 
 def poisciVsaPristanisca():
     """Vrne podatke o vseh pristaniščih."""
@@ -21,9 +21,17 @@ def poisciVseLadje():
         FROM Ladja""")
     return cur.fetchall()
 
+def poisciVseKabine():
+    '''Vrne podatke o vseh kabinah.
+    Namesto Id ladje vrne ime ladje, ki ji kabina pripada.'''
+    cur.execute("""
+        SELECT Ladja.ime, tip, stevilo_lezisc
+        FROM Kabina
+        JOIN Ladja ON Kabina.id_ladje = Ladja.id""")
+    return sorted(cur.fetchall(), key=lambda nabor:nabor[0]) # Kabine z iste ladje izpišemo skupaj
 
 def poisciLadjo(ime):
-    """Poišče vse podatke o ladji."""
+    """Poišče podatke o ladji na podlagi njenega imena."""
     cur.execute("""
         SELECT id, ime, leto_izdelave, nosilnost
         FROM Ladja
@@ -31,27 +39,21 @@ def poisciLadjo(ime):
     return cur.fetchone()
 
 def poisciPristanisce(pristanisce):
-    """Vrne podatke o pristanišču."""
+    """Vrne podatke o pristanišču na podlagi njegovega imena."""
     cur.execute("""
         SELECT id, pristanisce FROM Pristanisce
         WHERE pristanisce LIKE ?""", (pristanisce,))
     return cur.fetchone()
 
 def poisciPotnika(ime, priimek):
+    """Vrne podatke o potniku na podlagi njegovega imena in priimka."""
     cur.execute("""
         SELECT emso, ime, priimek FROM Potnik
         WHERE ime = ? AND PRIIMEK = ?;""", (ime, priimek))
     return cur.fetchone()
 
-# Izpis iskalnih ukazov
 
-print("Poiščimo vse ladje", poisciVseLadje())
-print(poisciLadjo("Reks"))
-print("Poiščimo vsa pristanišča:", poisciVsaPristanisca())
-print("Poiščimo enega potnika z danim imenom in priimkom", poisciPotnika("Marina", "Kovač"))
-
-
-# Funkcije dodajanja
+################ DODAJANJE #####################
 
 def dodajLadjo(ime, leto_izdelave, nosilnost):
     """Doda novo ladjo v tabelo Ladja"""
@@ -61,16 +63,13 @@ def dodajLadjo(ime, leto_izdelave, nosilnost):
         """, (ime, leto_izdelave, nosilnost))
     con.commit()
 
-def dodajKabino(tip, stevilo_lezisc, cena, ime_ladje, zasedena=False):
+def dodajKabino(tip, stevilo_lezisc, id_ladje):
     """Doda kabino v ladjo. Dobi ime ladje in se pozanima za id ladje."""
-    id_ladje, _, _, _ = poisciLadjo(ime_ladje)
     cur.execute("""
-        INSERT INTO Kabina (tip, stevilo_lezisc, zasedena, cena, id_ladje)
-        VALUES (?, ?, ?, ?, ?)
-        """, (tip, stevilo_lezisc, zasedena, cena, id_ladje))
+        INSERT INTO Kabina (tip, stevilo_lezisc, id_ladje)
+        VALUES (?, ?, ?)
+        """, (tip, stevilo_lezisc, id_ladje))
     con.commit()
-
-
 
 def dodajPristanisce(pristanisce):
     """Doda seznam pristanišč."""
@@ -87,6 +86,9 @@ def dodajPotnika(emso, ime, priimek):
         VALUES (?, ?, ?)
         """, (emso, ime, priimek))
     con.commit()
+
+
+################### ZA PREGLEDAT ##############################
 
 def dodajPot(zacetno_pristanisce, koncno_pristanisce, trajanje):
     """Doda pot. Pozanima se za id začetnega in končnega pristanišča."""
