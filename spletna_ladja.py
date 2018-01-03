@@ -26,6 +26,19 @@ def prikaziPristanisca():
 def prikaziPotovanja():
     return template('potovanje.html')
 
+@get('/dodaj/pristanisce/stran')
+def dodajPristanisceStran():
+    return template('dodaj_pristanisce.html')
+
+
+@post('/dodaj/pristanisce')
+def dodajPristanisce():
+    pristanisce = request.forms.pristanisce
+    try:
+        modeli.dodajPristanisce(pristanisce)
+    except Exception as e:
+        print("Zgodila se je napaka {} pri dodajanju pristanišča {}", e, pristanisce)
+    redirect('/')
 
 # Poženemo strežnik na vhodu 8080, glej http://localhost:8080/
 run(host='localhost', port=8080, reloader=True, debug=True)

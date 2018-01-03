@@ -1,0 +1,37 @@
+%rebase('osnova.html', naslov='hfkl', navigator='/' )
+
+
+	<h1 class="naslov">Dodajanje posameznih pristanišč.</h1>
+	<p>
+		Vpišite podatke za pristanišče, ki ga želite dodati.
+	</p>
+
+   Vnos novega pristanišča
+    <div class="vrstica">
+      <form method="POST" action="/dodaj/pristanisce">
+        <table>
+            <tr>
+                <td class="glava">
+                  Kraj:
+                </td>
+                <td>
+                  <input type="text" name="pristanisce" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                  <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
+                </td>
+            </tr>
+        </table>
+
+      </form>
+    </div>
+
+
+	<form method="get" action="/">
+        <button class="gumb">Nazaj</button>
+    </form>
