@@ -1,4 +1,4 @@
-%rebase('osnova.html', naslov='Dodajanje pristanišča', navigator='/ Dodaj / Pristanišče' )
+%rebase('osnova.html', naslov='Dodajanje pristanišča', navigator='/dodajPristanišče' )
 
 
 	<h1 class="naslov">Dodajanje posameznih pristanišč.</h1>
@@ -8,7 +8,7 @@
 
    Vnos novega pristanišča
     <div class="vrstica">
-      <form method="POST" action="/dodaj/pristanisce/v_bazo">
+      <form method="POST" action="/dodaj_pristanisce_v_bazo">
         <table>
             <tr>
                 <td class="glava">
@@ -31,7 +31,9 @@
       </form>
     </div>
 
+    % include('SeznamPristanisc.tpl', pristanisca=pristanisca)
 
-	<form method="get" action="/">
+
+	<form method="get" action="/administrator">
         <button class="gumb">Nazaj</button>
     </form>

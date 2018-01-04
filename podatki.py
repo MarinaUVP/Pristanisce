@@ -6,7 +6,7 @@ from modeli import *
 def dodaj():
     '''Doda različne podatke.'''
 
-    # Dadje
+    # Ladje
     dodajLadjo("Reks", 1972, 80)
     dodajLadjo("Titanik", 1920, 400)
     dodajLadjo("Pršec", 1996, 20)

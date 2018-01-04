@@ -1,13 +1,13 @@
-%rebase('osnova.html', naslov='Dodajanje kabin', navigator='/ Dodaj / Kabino' )
+%rebase('osnova.html', naslov='Dodajanje kabin', navigator='/dodajKabino' )
 
 
-	<h1 class="naslov">Dodajanje Kabin.</h1>
+	<h1 class="naslov">Dodajanje kabin</h1>
 	<p>
 		Vpišite podatke za kabino, ki jo želite dodati.
 	</p>
 
     <div class="vrstica">
-      <form method="POST" action="/dodaj/kabino/v_bazo">
+      <form method="POST" action="/dodaj_kabino_v_bazo">
         <table>
             <tr>
                 <td class="glava">
@@ -46,7 +46,8 @@
       </form>
     </div>
 
+    % include('SeznamKabin.tpl', kabine=kabine)
 
-	<form method="get" action="/">
+	<form method="get" action="/administrator">
         <button class="gumb">Nazaj</button>
     </form>

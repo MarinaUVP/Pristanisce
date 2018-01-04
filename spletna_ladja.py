@@ -36,12 +36,13 @@ def prikaziPotovanja():
 ############  DODAJANJE  ##############
 
 # Ladjo
-@get('/dodaj/ladjo')
+@get('/dodaj_ladjo')
 def prikaziDodajLadjo():
     '''Prikaže stran za dodajanje novih ladij.'''
-    return template('dodaj_ladjo.html')
+    vse_ladje = modeli.poisciVseLadje()
+    return template('dodaj_ladjo.html', ladje=vse_ladje)
 
-@post('/dodaj/ladjo/v_bazo')
+@post('/dodaj_ladjo_v_bazo')
 def dodajLadjo():
     ime = request.forms.ime
     leto_izdelave = request.forms.leto_izdelave
@@ -50,31 +51,33 @@ def dodajLadjo():
         modeli.dodajLadjo(ime, leto_izdelave, nosilnost)
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju ladje {}", e, ime)
-    redirect('/izpis_ladij')
+    redirect('/dodaj_ladjo')
 
 # Pristanišče
-@get('/dodaj/pristanisce')
+@get('/dodaj_pristanisce')
 def prikaziDodajPristanisce():
     '''Prikaže stran za dodajanje pristanišč.'''
-    return template('dodaj_pristanisce.html')
+    pristanisca = modeli.poisciVsaPristanisca()
+    return template('dodaj_pristanisce.html', pristanisca=pristanisca)
 
-@post('/dodaj/pristanisce/v_bazo')
+@post('/dodaj_pristanisce_v_bazo')
 def dodajPristanisce():
     pristanisce = request.forms.pristanisce
     try:
         modeli.dodajPristanisce(pristanisce)
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju pristanišča {}", e, pristanisce)
-    redirect('/izpis_pristanisc')
+    redirect('/dodaj_pristanisce')
 
 # Kabino
-@get('/dodaj/kabino')
+@get('/dodaj_kabino')
 def prikaziDodajKabino():
     '''Prikaže stran za dodajanje kabine.'''
     ladje = modeli.poisciVseLadje()
-    return template('dodaj_kabino.html', ladje = ladje)
+    vse_kabine = modeli.poisciVseKabine()
+    return template('dodaj_kabino.html', ladje = ladje, kabine=vse_kabine)
 
-@post('/dodaj/kabino/v_bazo')
+@post('/dodaj_kabino_v_bazo')
 def dodajKabino():
     '''Dodamo kabinko v bazo.'''
     stevilo_lezisc = request.forms.stevilo_lezisc
@@ -84,8 +87,13 @@ def dodajKabino():
         modeli.dodajKabino("udobna", stevilo_lezisc, id_ladje)
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju sobe s {} ležišči.", e, stevilo_lezisc)
-    redirect('/izpis_kabin')
+    redirect('/dodaj_kabino')
 
+
+############  ADMINISTRATOR  ##############
+@get('/administrator')
+def glavniMenu():
+    return template('administrator.html')
 
 
 #=================================================

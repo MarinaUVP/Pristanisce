@@ -1,20 +1,15 @@
-%rebase('osnova.html', naslov='Izpis ladij', navigator='/ Izpis / Ladje' )
+%rebase('osnova.html', naslov='Izpis ladij', navigator='/IzpisLadij' )
 
 
-    <h1>Izpis ladij</h1>
+    <h1 class="naslov">Izpis ladij</h1>
 
     <p>
     Tole bo stran, kjer bo prikazan seznam vseh ladij z njihovimi
     podatki, razen z osebnimi podatki potnikov.
     </p>
 
-    <!-- Izpis ladij -->
-    %for ladja in ladje:
-    <li>{{ladja}}</li>
-    %end
-    <form method="get" action="/dodaj/ladjo">
-        <button class="gumb">Dodaj še eno ladjo</button>
-    </form>
+    % include('SeznamLadij.tpl', ladje=ladje)
+
 
     <form method="get" action="/">
         <button class="gumb">Nazaj</button>
