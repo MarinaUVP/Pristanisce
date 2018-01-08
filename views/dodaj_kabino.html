@@ -23,10 +23,9 @@
                     <p>
 
                         <label>Izberi ladjo</label>
-                        <select id = "izbira_ladij">
-                            %for ladja in ladje:
-                            %(id, ime, leto_izdelave, nosilnost) = ladja
-                            <option value={{id}}>{{ime}}</option>
+                        <select name="izbira_ladij">
+                            %for id, ime, leto_izdelave, nosilnost in ladje:
+                            <option value="{{id}}">{{ime}}</option>
                             %end
                         </select>
                     </p>
@@ -38,7 +37,7 @@
                 </td>
                 <td class="gumb_dodaj">
                     <input type="hidden" name="id_ladje" id="stevilka_ladje"/>
-                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi" onclick="document.getElementById('stevilka_ladje').value = document.getElementById('izbira_ladij').value;"/>
+                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi" />
                 </td>
             </tr>
         </table>

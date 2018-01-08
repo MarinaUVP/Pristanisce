@@ -82,11 +82,11 @@ def dodajKabino():
     '''Dodamo kabinko v bazo.'''
     stevilo_lezisc = request.forms.stevilo_lezisc
     # Rabimo še podatek o ladji
-    id_ladje = request.forms.id_ladje
+    id_ladje = request.forms.izbira_ladij
     try:
         modeli.dodajKabino("udobna", stevilo_lezisc, id_ladje)
     except Exception as e:
-        print("Zgodila se je napaka {} pri dodajanju sobe s {} ležišči.", e, stevilo_lezisc)
+        print("Zgodila se je napaka {} pri dodajanju sobe s {} ležišči za ladjo {}.".format(e, stevilo_lezisc, id_ladje))
     redirect('/dodaj_kabino')
 
 
