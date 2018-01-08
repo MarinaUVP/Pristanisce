@@ -4,6 +4,7 @@ import csv
 BAZA = "ladja.db"
 con = sqlite3.connect(BAZA)
 cur = con.cursor()
+cur.execute("PRAGMA foreign_keys = ON")
 
 ############### POIZVEDBE ################
 
@@ -20,6 +21,7 @@ def poisciVseLadje():
         SELECT id, ime, leto_izdelave, nosilnost
         FROM Ladja""")
     return cur.fetchall()
+
 
 def poisciVseKabine():
     '''Vrne podatke o vseh kabinah.
