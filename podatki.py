@@ -15,8 +15,22 @@ def dodaj():
     dodajLadjo("Nataša", 1995, 30)
 
 
+    # Dodaj tip kabine
+    dodajTip_kabine("predsedniška")
+    dodajTip_kabine("ekonomična")
+    dodajTip_kabine("plebejska")
+    dodajTip_kabine("meščanska")
+    dodajTip_kabine("plemiška")
+
+    # Dodaj potovanje
+    dodajNacrt_poti("Karibi")
+
     # Kabino
     dodajKabino("enojna", 4500, 2)
+
+    # Dodaj ceno kabine
+    dodajCeno_kabine(500, 3, 1)
+
 
     # Pristanišče
     dodajPristanisce("Koper")
@@ -29,6 +43,7 @@ def dodaj():
     # Potnika
     dodajPotnika(1, "Marina", "Kovač")
     dodajPotnika(2, "Jakob", "Valič")
+
 
 
 try:

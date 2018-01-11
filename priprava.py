@@ -74,18 +74,12 @@ def ustvariTabeloNacrt_poti():
     cur.execute("""
         CREATE TABLE Nacrt_poti (
         id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-        id_ladje            INTEGER NOT NULL,
-        id_poti             INTEGER NOT NULL,
-        datum               DATE NOT NULL,
-        UNIQUE (id_ladje, id_poti, datum),
-        FOREIGN KEY (id_ladje) REFERENCES Ladja(id),
-        FOREIGN KEY (id_poti)  REFERENCES Pot(id));
+        naziv_potovanja     CHAR NOT NULL UNIQUE);
         """)
 
 
 def ustvariTabeloPotovanje():
     """Tu lahko id_ladje in id_poti nadomestimo z id_nacrta_poti."""
-
     cur.execute("""
         CREATE TABLE Potovanje (
         emso                INTEGER NOT NULL,
@@ -97,7 +91,25 @@ def ustvariTabeloPotovanje():
         PRIMARY KEY (emso, id_nacrta_poti, id_kabine));
         """)
 
-for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Potovanje"]:
+def ustvariTabeloTip_kabine():
+    cur.execute("""
+        CREATE TABLE Tip_kabine (
+        id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+        tip                 CHAR NOT NULL UNIQUE
+        );
+    """)
+
+def ustvariTabeloCena_kabine():
+    cur.execute("""
+    CREATE TABLE Cena_kabine (
+    cena                    INTEGER PRIMARY KEY,
+    id_tip_kabine           REFERENCES Tip_kabine(id),
+    id_nacrt_poti           REFERENCES Nacrt_poti(id),
+    UNIQUE(id_tip_kabine, id_nacrt_poti)
+    );
+    """)
+
+for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Potovanje", "Tip_kabine", "Cena_kabine"]:
     eval("ustvariTabelo{0}()".format(tabela))
 
 import podatki

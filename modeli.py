@@ -89,6 +89,30 @@ def dodajPotnika(emso, ime, priimek):
         """, (emso, ime, priimek))
     con.commit()
 
+def dodajTip_kabine(tip):
+    """Doda tip kabine."""
+    cur.execute("""
+        INSERT INTO Tip_kabine(tip)
+        VALUES (?)
+        """, (tip,))
+    con.commit()
+
+def dodajCeno_kabine(cena_kabine, id_tip_kabine, id_nacrt_poti):
+    """Doda ceno kabine."""
+    cur.execute("""
+        INSERT INTO Cena_kabine(cena, id_tip_kabine, id_nacrt_poti)
+        VALUES (?, ?, ?)
+        """, (cena_kabine, id_tip_kabine, id_nacrt_poti))
+    con.commit()
+
+def dodajNacrt_poti(naziv_potovanja):
+    """Povezuje ladjo s potjo."""
+    cur.execute("""
+        INSERT INTO Nacrt_Poti (naziv_potovanja)
+        VALUES (?);
+        """, (naziv_potovanja,))
+    con.commit()
+
 
 ################### ZA PREGLEDAT ##############################
 
@@ -102,13 +126,6 @@ def dodajPot(zacetno_pristanisce, koncno_pristanisce, trajanje):
         """, (zacetek, konec, trajanje))
     con.commit()
 
-def dodajNacrt_poti(id_ladje, id_poti, datum):
-    """Povezuje ladjo s potjo."""
-    cur.execute("""
-        INSERT INTO Nacrt_Poti (id_ladje, id_poti)
-        VALUES (?, ?, ?);
-        """, (id_ladje, id_poti, datum))
-    con.commit()
 
 def dodajPotovanje(emso, id_ladje, id_poti, id_kabine, datum):
     """Poveže tabelo Osebe z Ladjo, Potjo in Kabino."""
