@@ -77,7 +77,7 @@ def ustvariTabeloNacrt_poti():
         naziv_potovanja     CHAR NOT NULL UNIQUE);
         """)
 
-
+### Uporabno???
 def ustvariTabeloPotovanje():
     """Tu lahko id_ladje in id_poti nadomestimo z id_nacrta_poti."""
     cur.execute("""

@@ -1,43 +1,43 @@
-%rebase('osnova.html', naslov='Dodajanje kabin', navigator='/dodajKabino' )
+%rebase('osnova.html', naslov='Dodajanje cene kabine', navigator='/dodajCenoKabine' )
 
 
-	<h1 class="naslov">Dodajanje kabin</h1>
+	<h1 class="naslov">Dodajanje cene kabine</h1>
 	<p>
-		Vpišite podatke za kabino, ki jo želite dodati.
+		Vpišite podatke za ceno kabine, ki jo želite dodati.
 	</p>
 
     <div class="vrstica">
-      <form method="POST" action="/administrator/dodaj_kabino_v_bazo">
+      <form method="POST" action="/administrator/dodaj_ceno_kabine_v_bazo">
         <table>
             <tr>
                 <td class="glava">
-                  Število ležišč:
+                  Cea kabine:
                 </td>
                 <td>
-                  <input type="text" name="stevilo_lezisc" value=""/>
+                  <input type="text" name="cena_kabine" value=""/>
                 </td>
             </tr>
             <tr>
                 <fieldset>
-                    <legend>Izbirni seznam ladij</legend>
+                    <legend>Izbirni seznam tipov kabin.</legend>
                     <p>
 
-                        <label>Izberi ladjo</label>
-                        <select name="izbira_ladij">
-                            %for id, ime, leto_izdelave, nosilnost in ladje:
-                            <option value="{{id}}">{{ime}}</option>
+                        <label>Izberi tip kabine.</label>
+                        <select name="izbira_tipa_kabine">
+                            %for id, tip in tipi_kabin:
+                            <option value="{{id}}">{{tip}}</option>
                             %end
                         </select>
                     </p>
                 </fieldset>
                 <fieldset>
-                    <legend>Izbirni seznam tipa kabin</legend>
+                    <legend>Izbirni seznam potovanj.</legend>
                     <p>
 
-                        <label>Izberi tip kabine</label>
-                        <select name="izbira_tipa_kabine">
-                            %for id, tip in tipi_kabin:
-                            <option value="{{tip}}">{{tip}}</option>
+                        <label>Izberi potovanje.</label>
+                        <select name="izbira_nacrta_poti">
+                            %for id, naziv_potovanja in potovanja:
+                            <option value="{{id}}">{{naziv_potovanja}}</option>
                             %end
                         </select>
                     </p>
@@ -57,8 +57,8 @@
       </form>
     </div>
 
-    % include('SeznamKabin.tpl', kabine=kabine)
 
 	<form method="get" action="/administrator">
         <button class="gumb">Nazaj</button>
     </form>
+

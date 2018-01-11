@@ -54,6 +54,20 @@ def poisciPotnika(ime, priimek):
         WHERE ime = ? AND PRIIMEK = ?;""", (ime, priimek))
     return cur.fetchone()
 
+def poisciVseTipeKabin():
+    """Poišče vse tipe kabin."""
+    cur.execute("""
+        SELECT id, tip FROM Tip_kabine;
+        """)
+    return cur.fetchall()
+
+def poisciVseNacrtePoti():
+    """Poišče vse načrte poti."""
+    cur.execute("""
+        SELECT id, naziv_potovanja FROM Nacrt_poti;
+    """)
+    return cur.fetchall()
+
 
 ################ DODAJANJE #####################
 
