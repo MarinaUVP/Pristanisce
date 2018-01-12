@@ -32,6 +32,29 @@ def poisciVseKabine():
         JOIN Ladja ON Kabina.id_ladje = Ladja.id""")
     return sorted(cur.fetchall(), key=lambda nabor:nabor[0]) # Kabine z iste ladje izpišemo skupaj
 
+def poisciVseTipeKabin():
+    """Poišče vse tipe kabin."""
+    cur.execute("""
+        SELECT id, tip FROM Tip_kabine;
+        """)
+    return cur.fetchall()
+
+def poisciVseNacrtePoti():
+    """Poišče vse načrte poti."""
+    cur.execute("""
+        SELECT id, naziv_potovanja FROM Nacrt_poti;
+    """)
+    return cur.fetchall()
+
+def poisciVseCeneKabin():
+    """Poišče vse cene kabin glede na tip kabine in potovanje."""
+    cur.execute("""
+        SELECT Nacrt_poti.naziv_potovanja, Tip_kabine.tip, cena FROM Cena_kabine
+        JOIN Tip_kabine ON Cena_kabine.id_tip_kabine = Tip_kabine.id
+        JOIN Nacrt_poti ON Cena_kabine.id_nacrt_poti = Nacrt_poti.id;
+    """)
+    return sorted(cur.fetchall(), key=lambda lastnost: lastnost[0])
+
 def poisciLadjo(ime):
     """Poišče podatke o ladji na podlagi njenega imena."""
     cur.execute("""
@@ -54,19 +77,7 @@ def poisciPotnika(ime, priimek):
         WHERE ime = ? AND PRIIMEK = ?;""", (ime, priimek))
     return cur.fetchone()
 
-def poisciVseTipeKabin():
-    """Poišče vse tipe kabin."""
-    cur.execute("""
-        SELECT id, tip FROM Tip_kabine;
-        """)
-    return cur.fetchall()
 
-def poisciVseNacrtePoti():
-    """Poišče vse načrte poti."""
-    cur.execute("""
-        SELECT id, naziv_potovanja FROM Nacrt_poti;
-    """)
-    return cur.fetchall()
 
 
 ################ DODAJANJE #####################

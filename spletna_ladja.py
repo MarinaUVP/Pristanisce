@@ -53,6 +53,22 @@ def dodajLadjo():
         print("Zgodila se je napaka {} pri dodajanju ladje {}", e, ime)
     redirect('/administrator/dodaj_ladjo')
 
+# Načrt poti
+@get('/administrator/dodaj_nacrt_poti')
+def prikaziDodajNacrtPoti():
+    '''Prikaže stran za dodajanje načrta poti.'''
+    vsi_nacrti_poti = modeli.poisciVseNacrtePoti()
+    return template('dodaj_nacrt_poti.html', vsi_nacrti_poti=vsi_nacrti_poti)
+
+@post('/administrator/dodaj_nacrt_poti_v_bazo')
+def dodajNacrtPoti():
+    naziv_potovanja = request.forms.naziv_potovanja
+    try:
+        modeli.dodajNacrt_poti(naziv_potovanja)
+    except Exception as e:
+        print("Zgodila se je napaka {} pri dodajanju načrta poti: {}", e, naziv_potovanja)
+    redirect('/administrator/dodaj_nacrt_poti')
+
 # Pristanišče
 @get('/administrator/dodaj_pristanisce')
 def prikaziDodajPristanisce():
@@ -78,6 +94,7 @@ def prikaziDodajKabino():
     vsi_tipi_kabin = modeli.poisciVseTipeKabin()
     return template('dodaj_kabino.html', ladje = ladje, kabine=vse_kabine, tipi_kabin= vsi_tipi_kabin)
 
+
 @post('/administrator/dodaj_kabino_v_bazo')
 def dodajKabino():
     '''Dodamo kabinko v bazo.'''
@@ -97,7 +114,8 @@ def prikaziCenoKabine():
     '''Prikaže stran za dodajanje kabine.'''
     vsi_tipi_kabin = modeli.poisciVseTipeKabin()
     vsa_potovanja = modeli.poisciVseNacrtePoti()
-    return template('dodaj_ceno_kabine.html', tipi_kabin = vsi_tipi_kabin, potovanja = vsa_potovanja)
+    vse_cene_kabin = modeli.poisciVseCeneKabin()
+    return template('dodaj_ceno_kabine.html', tipi_kabin = vsi_tipi_kabin, potovanja = vsa_potovanja, cene_kabin=vse_cene_kabin)
 
 @post('/administrator/dodaj_ceno_kabine_v_bazo')
 def dodajCenoKabine():
@@ -110,6 +128,7 @@ def dodajCenoKabine():
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju cene kabine {} na potovanju {}.".format(e, id_tip_kabine, id_potovanje))
     redirect('/administrator/dodaj_ceno_kabine')
+
 
 
 

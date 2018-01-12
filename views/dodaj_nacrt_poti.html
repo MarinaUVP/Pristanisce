@@ -1,0 +1,34 @@
+%rebase('osnova.html', naslov='Dodajanje načrta poti', navigator='/administrator/dodaj_nacrt_poti' )
+
+
+	<h1 class="naslov">Dodajanje načrta poti</h1>
+
+    <div class="vrstica">
+      <form method="POST" action="/administrator/dodaj_nacrt_poti_v_bazo">
+        <table>
+            <tr>
+                <td class="glava">
+                  Naziv potovanja:
+                </td>
+                <td>
+                  <input type="text" name="naziv_potovanja" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi" />
+                </td>
+            </tr>
+        </table>
+
+      </form>
+    </div>
+
+    % include('SeznamNacrtovPoti.tpl', vsi_nacrti_poti=vsi_nacrti_poti)
+
+	<form method="get" action="/administrator">
+        <button class="gumb">Nazaj</button>
+    </form>

@@ -3,8 +3,9 @@
 
 	<h1 class="naslov">Dodajanje cene kabine</h1>
 	<p>
-		Vpišite podatke za ceno kabine, ki jo želite dodati.
-	</p>
+		Vpišite podatke za ceno kabine za določeno potovanje.
+    </p>
+    <p>PAZI! En tip kabine ima na enem potovanju enotno ceno.</p>
 
     <div class="vrstica">
       <form method="POST" action="/administrator/dodaj_ceno_kabine_v_bazo">
@@ -56,6 +57,8 @@
 
       </form>
     </div>
+
+    % include('SeznamCenKabin.tpl', cene_kabin=cene_kabin)
 
 
 	<form method="get" action="/administrator">
