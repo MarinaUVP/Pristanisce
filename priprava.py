@@ -97,19 +97,7 @@ def ustvariTabeloNacrt_poti():
         naziv_potovanja     CHAR NOT NULL UNIQUE);
         """)
 
-### Uporabno???
-def ustvariTabeloPotovanje():
-    """Tu lahko id_ladje in id_poti nadomestimo z id_nacrta_poti."""
-    cur.execute("""
-        CREATE TABLE Potovanje (
-        emso                INTEGER NOT NULL,
-        id_nacrta_poti      INTEGER NOT NULL,
-        id_kabine           INTEGER NOT NULL,
-        FOREIGN KEY (emso) REFERENCES Potnik (emso),
-        FOREIGN KEY (id_nacrta_poti) REFERENCES Nacrt_poti(id),
-        FOREIGN KEY (id_kabine) REFERENCES Kabina(id),
-        PRIMARY KEY (emso, id_nacrta_poti, id_kabine));
-        """)
+
 
 def ustvariTabeloTip_kabine():
     cur.execute("""
@@ -129,7 +117,29 @@ def ustvariTabeloCena_kabine():
     );
     """)
 
-for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Potovanje", "Tip_kabine", "Cena_kabine", "Odsek", "Ima_odsek"]:
+def ustvariTabeloIzvedba_potovanja():
+    cur.execute("""
+    CREATE TABLE Izvedba_potovanja (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    datum_zacetka           DATE,
+    id_nacrta_poti          REFERENCES Nacrt_pot(id),
+    id_ladje                REFERENCES Ladja(id),
+    UNIQUE (id_ladje, datum_zacetka)
+    );
+    """)
+
+def ustvariTabeloVozovnica():
+    cur.execute("""
+    CREATE TABLE Vozovnica (
+    emso_potnika            REFERENCES Potnik(id),
+    id_kabine               REFERENCES Kabina(id),
+    id_izvedbe_potovanja    REFERENCES Izvedba_potovanja(id),
+    UNIQUE (emso_potnika, id_kabine, id_izvedbe_potovanja)
+    );
+    """)
+
+
+for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Tip_kabine", "Cena_kabine", "Odsek", "Ima_odsek", "Izvedba_potovanja", "Vozovnica"]:
     eval("ustvariTabelo{0}()".format(tabela))
 
 import podatki

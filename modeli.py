@@ -15,6 +15,19 @@ def poisciVsaPristanisca():
         FROM Pristanisce""")
     return cur.fetchall()
 
+def poisciVsePotnike():
+    """Vrne podatke o vseh potnikih."""
+    cur.execute("""
+        SELECT *
+        FROM Potnik""")
+    return cur.fetchall()
+
+def poisciVseVozovnice():
+    """Vrne podatke o vseh vozovnicah."""
+    cur.execute("""
+        SELECT *
+        FROM Vozovnica""")
+    return cur.fetchall()
 
 def poisciVseOdseke():
     """Vrne podatke o vseh odsekih poti."""
@@ -129,6 +142,13 @@ def dodajIma_odsek(postanek, id_nacrta_poti, id_odseka):
         INSERT INTO Ima_odsek (postanek, id_nacrta_poti, id_odseka_poti)
         VALUES (?, ?, ?);
         """, (postanek, id_nacrta_poti, id_odseka))
+    con.commit()
+
+def dodajIzvedbo_potovanja(datum_zacetka, id_nacrta_poti, id_ladje):
+    cur.execute("""
+        INSERT INTO Izvedba_potovanja (datum_zacetka, id_nacrta_poti, id_ladje)
+        VALUES (?, ?, ?);
+        """, (datum_zacetka, id_nacrta_poti, id_ladje))
     con.commit()
 
 def dodajPotnika(emso, ime, priimek):

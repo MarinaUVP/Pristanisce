@@ -110,7 +110,24 @@ def dodajImaOdsek():
         print(e)
     redirect('/administrator/dodaj_nacrt_poti')
 
+# Izvedba potovanja
+@get('/administrator/dodaj_izvedbo_potovanja')
+def prikaziDodajPotovanje():
+    '''Prikaže stran za dodajanje izvedbe potovanja.'''
+    nacrti_poti = modeli.poisciVseNacrtePoti()
+    ladje = modeli.poisciVseLadje()
+    return template('dodaj_izvedbo_potovanja', nacrti_poti=nacrti_poti, ladje=ladje)
 
+@post('/administrator/dodaj_izvedbo_potovanja_v_bazo')
+def dodajIzvedboPotovanja():
+    id_ladje = request.forms.id_ladje
+    id_nacrta_poti = request.forms.id_nacrta_poti
+    datum_zacetka = request.forms.datum_zacetka
+    try:
+        modeli.dodajIzvedbo_potovanja(datum_zacetka, id_nacrta_poti, id_ladje)
+    except Exception as e:
+        print(e)
+    redirect('/administrator/dodaj_izvedbo_potovanja')
 
 
 

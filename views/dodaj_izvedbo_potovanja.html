@@ -1,0 +1,56 @@
+%rebase('osnova.html', naslov='Dodajanje izvedbe potovanja', navigator='/administrator/dodaj_izvedbo_potovanja' )
+
+
+<h1 class="naslov">Dodajanje odsekov v načrt potovanja</h1>
+
+<div class="vrstica">
+    <form method="POST" action="/administrator/dodaj_izvedbo_potovanja_v_bazo">
+        <table>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam ladij</legend>
+                    <p>
+                        <label>Ladja</label>
+                        <select name="id_ladje">
+                            %for id, ime, _, _ in ladje:
+                            <option value="{{id}}">{{ime}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam načrtov poti</legend>
+                    <p>
+                        <label>Načrt poti</label>
+                        <select name="id_nacrta_poti">
+                            %for id, naziv in nacrti_poti:
+                            <option value="{{id}}">{{naziv}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <td class="glava">
+                Datum začetka potovanja:
+            </td>
+            <td>
+                <input type="date" name="datum_zacetka" value=""/>
+            </td>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+<form method="get" action="/administrator">
+    <button class="gumb">Nazaj</button>
+</form>
