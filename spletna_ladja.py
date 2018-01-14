@@ -57,8 +57,10 @@ def dodajLadjo():
 @get('/administrator/dodaj_nacrt_poti')
 def prikaziDodajNacrtPoti():
     '''Prikaže stran za dodajanje načrta poti.'''
+    odseki = modeli.poisciVseOdseke()
+    pristanisca = modeli.poisciVsaPristanisca()
     vsi_nacrti_poti = modeli.poisciVseNacrtePoti()
-    return template('dodaj_nacrt_poti.html', vsi_nacrti_poti=vsi_nacrti_poti)
+    return template('dodaj_nacrt_poti.html', vsi_nacrti_poti=vsi_nacrti_poti, odseki=odseki, pristanisca=pristanisca)
 
 @post('/administrator/dodaj_nacrt_poti_v_bazo')
 def dodajNacrtPoti():
@@ -84,6 +86,33 @@ def dodajPristanisce():
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju pristanišča {}", e, pristanisce)
     redirect('/administrator/dodaj_pristanisce')
+
+@post('/administrator/dodaj_odsek_v_bazo')
+def dodajOdsek():
+    id_zacetnega_pristanisca = request.forms.id_zacetnega_pristanisca
+    id_koncnega_pristanisca = request.forms.id_koncnega_pristanisca
+    cas_potovanja = request.forms.cas_potovanja
+    try:
+        modeli.dodajOdsek(id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja)
+    except Exception as e:
+        print("Zgodila se je napaka {} pri dodajanju odseka {}", (e, (id_zacetnega_pristanisca, id_koncnega_pristanisca)))
+    redirect('/administrator/dodaj_nacrt_poti')
+
+# Ima odsek
+@post('/administrator/dodaj_ima_odsek_v_bazo')
+def dodajImaOdsek():
+    id_nacrta_poti = request.forms.id_nacrta_poti
+    id_odseka = request.forms.id_odseka
+    postanek = request.forms.postanek
+    try:
+        modeli.dodajIma_odsek(postanek, id_nacrta_poti, id_odseka)
+    except Exception as e:
+        print(e)
+    redirect('/administrator/dodaj_nacrt_poti')
+
+
+
+
 
 # Kabino
 @get('/administrator/dodaj_kabino')
@@ -133,7 +162,6 @@ def dodajCenoKabine():
 
 
 
-
 ############  ADMINISTRATOR  ##############
 @get('/administrator')
 def glavniMenu():
@@ -145,3 +173,12 @@ def glavniMenu():
 
 # Poženemo strežnik na vhodu 8080, glej http://localhost:8080/
 run(host='localhost', port=8080, reloader=True, debug=True)
+
+
+# Odsek
+# @get('/administrator/dodaj_odsek')
+# def prikaziDodajOdsek():
+#     '''Prikaže stran za dodajanje odsekov.'''
+#     pristanisca = modeli.poisciVsaPristanisca()
+#     odseki = modeli.poisciVseOdseke()
+#     return template('dodaj_odsek.html', odseki=odseki, pristanisca=pristanisca)

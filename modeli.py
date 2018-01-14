@@ -15,6 +15,17 @@ def poisciVsaPristanisca():
         FROM Pristanisce""")
     return cur.fetchall()
 
+
+def poisciVseOdseke():
+    """Vrne podatke o vseh odsekih poti."""
+    cur.execute("""
+        SELECT Odsek.id, x.pristanisce, y.pristanisce, cas_potovanja
+        FROM Odsek
+        JOIN Pristanisce AS x ON Odsek.id_zacetnega_pristanisca = x.id
+        JOIN Pristanisce AS y ON Odsek.id_koncnega_pristanisca = y.id
+        ;""")
+    return cur.fetchall()
+
 def poisciVseLadje():
     '''Vrne podatke o vseh ladjah.'''
     cur.execute("""
@@ -106,6 +117,20 @@ def dodajPristanisce(pristanisce):
         """, (pristanisce,))
     con.commit()
 
+def dodajOdsek(id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja):
+    cur.execute("""
+        INSERT INTO Odsek (id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja)
+        VALUES (?, ?, ?)
+        """, (id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja))
+    con.commit()
+
+def dodajIma_odsek(postanek, id_nacrta_poti, id_odseka):
+    cur.execute("""
+        INSERT INTO Ima_odsek (postanek, id_nacrta_poti, id_odseka_poti)
+        VALUES (?, ?, ?);
+        """, (postanek, id_nacrta_poti, id_odseka))
+    con.commit()
+
 def dodajPotnika(emso, ime, priimek):
     """Doda potnika."""
     cur.execute("""
@@ -138,27 +163,6 @@ def dodajNacrt_poti(naziv_potovanja):
         """, (naziv_potovanja,))
     con.commit()
 
-
-################### ZA PREGLEDAT ##############################
-
-def dodajPot(zacetno_pristanisce, koncno_pristanisce, trajanje):
-    """Doda pot. Pozanima se za id začetnega in končnega pristanišča."""
-    zacetek, _ = poisciPristanisce(zacetno_pristanisce)
-    konec, _ = poisciPristanisce(koncno_pristanisce)
-    cur.execute("""
-        INSERT INTO Pot (zacetek, konec, trajanje)
-        VALUES (?, ?, ?)
-        """, (zacetek, konec, trajanje))
-    con.commit()
-
-
-def dodajPotovanje(emso, id_ladje, id_poti, id_kabine, datum):
-    """Poveže tabelo Osebe z Ladjo, Potjo in Kabino."""
-    cur.execute("""
-        INSERT INTO Potovanje (emso, id_ladje, id_poti, id_kabine, datum)
-        VALUES (?, ?, ?, ?, ?);
-        """, (emso, id_ladje, id_poti, id_kabine, datum))
-    con.commit()
 
 
 

@@ -1,17 +1,93 @@
 %rebase('osnova.html', naslov='Dodajanje načrta poti', navigator='/administrator/dodaj_nacrt_poti' )
 
 
-	<h1 class="naslov">Dodajanje načrta poti</h1>
+<h1 class="naslov">Dodajanje odsekov v načrt potovanja</h1>
 
-    <div class="vrstica">
-      <form method="POST" action="/administrator/dodaj_nacrt_poti_v_bazo">
+<div class="vrstica">
+    <form method="POST" action="/administrator/dodaj_ima_odsek_v_bazo">
         <table>
             <tr>
+                <fieldset>
+                    <legend>Izbirni seznam odsekov</legend>
+                    <p>
+                        <label>Odsek</label>
+                        <select name="id_odseka">
+                            %for id, zacetek, konec, cas in odseki:
+                            <option value="{{id}}">{{zacetek}} -> {{konec}}, {{cas}} ur</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam nazivov poti</legend>
+                    <p>
+                        <label>Naziv potovanja</label>
+                        <select name="id_nacrta_poti">
+                            %for id, naziv in vsi_nacrti_poti:
+                            <option value="{{id}}">{{naziv}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <td class="glava">
+                Postanek v končnem pristanišču:
+            </td>
+            <td>
+                <input type="date" name="postanek" value=""/>
+            </td>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+<h1 class="naslov">Dodajanje odsekov</h1>
+
+<div class="vrstica">
+    <form method="POST" action="/administrator/dodaj_odsek_v_bazo">
+        <table>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam pristanišč</legend>
+                    <p>
+                        <label>Začetno pristanišče</label>
+                        <select name="id_zacetnega_pristanisca">
+                            %for id, pristanisce in pristanisca:
+                            <option value="{{id}}">{{pristanisce}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam pristanišč</legend>
+                    <p>
+                        <label>Končno pristanišče</label>
+                        <select name="id_koncnega_pristanisca">
+                            %for id, pristanisce in pristanisca:
+                            <option value="{{id}}">{{pristanisce}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <tr>
                 <td class="glava">
-                  Naziv potovanja:
+                    Čas potovanja:
                 </td>
                 <td>
-                  <input type="text" name="naziv_potovanja" value=""/>
+                    <input type="text" name="cas_potovanja" value=""/>
                 </td>
             </tr>
             <tr>
@@ -19,16 +95,45 @@
                     &nbsp;
                 </td>
                 <td class="gumb_dodaj">
-                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi" />
+                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
                 </td>
             </tr>
         </table>
 
-      </form>
-    </div>
-
-    % include('SeznamNacrtovPoti.tpl', vsi_nacrti_poti=vsi_nacrti_poti)
-
-	<form method="get" action="/administrator">
-        <button class="gumb">Nazaj</button>
     </form>
+</div>
+
+% include('SeznamOdsekov.tpl', odseki=odseki)
+
+<h1 class="naslov">Dodajanje novega naziva načrta poti</h1>
+
+<div class="vrstica">
+    <form method="POST" action="/administrator/dodaj_nacrt_poti_v_bazo">
+        <table>
+            <tr>
+                <td class="glava">
+                    Naziv potovanja:
+                </td>
+                <td>
+                    <input type="text" name="naziv_potovanja" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                    <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+
+% include('SeznamNacrtovPoti.tpl', vsi_nacrti_poti=vsi_nacrti_poti)
+
+
+<form method="get" action="/administrator">
+    <button class="gumb">Nazaj</button>
+</form>

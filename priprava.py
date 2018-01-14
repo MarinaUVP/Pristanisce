@@ -58,6 +58,26 @@ def ustvariTabeloPristanisce():
         pristanisce         CHAR NOT NULL);
         """)
 
+def ustvariTabeloOdsek():
+    cur.execute("""
+        CREATE TABLE Odsek (
+        id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_zacetnega_pristanisca    REFERENCES Pristanisce (id),
+        id_koncnega_pristanisca     REFERENCES Pristanisce (id),
+        cas_potovanja       INTEGER NOT NULL,
+        UNIQUE (id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja)
+        );
+        """)
+
+def ustvariTabeloIma_odsek():
+    cur.execute("""
+        CREATE TABLE Ima_odsek (
+        postanek         INTEGER,
+        id_nacrta_poti      REFERENCES Nacrt_poti (id),
+        id_odseka_poti      REFERENCES Odsek (id)
+        );
+        """)
+
 def ustvariTabeloPot():
     cur.execute("""
         CREATE TABLE Pot (
@@ -109,7 +129,7 @@ def ustvariTabeloCena_kabine():
     );
     """)
 
-for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Potovanje", "Tip_kabine", "Cena_kabine"]:
+for tabela in ["Ladja", "Potnik", "Pristanisce", "Kabina", "Pot", "Nacrt_poti", "Potovanje", "Tip_kabine", "Cena_kabine", "Odsek", "Ima_odsek"]:
     eval("ustvariTabelo{0}()".format(tabela))
 
 import podatki
