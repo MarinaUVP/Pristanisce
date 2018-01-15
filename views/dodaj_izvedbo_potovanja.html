@@ -36,7 +36,7 @@
                 Datum začetka potovanja:
             </td>
             <td>
-                <input type="date" name="datum_zacetka" value=""/>
+                <p><input type="text" id="izbirnik_datuma_zacetka" name="datum_zacetka"></p>
             </td>
             <tr>
                 <td>
@@ -54,3 +54,12 @@
 <form method="get" action="/administrator">
     <button class="gumb">Nazaj</button>
 </form>
+
+
+<!-- JS dodamo na koncu, tik pred </body>, da poživi elemente, ki so se zgenerirali
+    # pomeni, da bo šel iskat po id-ju; . pomeni, da pregleda vse razrede; $ pomeni, da izvede funkcijo-->
+<script>
+  $( function() {
+    $( "#izbirnik_datuma_zacetka" ).datepicker();
+  } );
+ </script>

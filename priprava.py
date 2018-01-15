@@ -122,7 +122,7 @@ def ustvariTabeloIzvedba_potovanja():
     CREATE TABLE Izvedba_potovanja (
     id                      INTEGER PRIMARY KEY AUTOINCREMENT,
     datum_zacetka           DATE,
-    id_nacrta_poti          REFERENCES Nacrt_pot(id),
+    id_nacrta_poti          REFERENCES Nacrt_poti(id),
     id_ladje                REFERENCES Ladja(id),
     UNIQUE (id_ladje, datum_zacetka)
     );
