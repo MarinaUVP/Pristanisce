@@ -13,6 +13,15 @@
                         <label>Odsek</label>
                         <select name="id_odseka">
                             %for id, zacetek, konec, cas in odseki:
+                            % if cas == 1:
+                            <option value="{{id}}">{{zacetek}} -> {{konec}}, {{cas}} ura</option>
+                            % elif cas == 2:
+                            <option value="{{id}}">{{zacetek}} -> {{konec}}, {{cas}} uri</option>
+                            % elif cas == 3 or cas == 4:
+                            <option value="{{id}}">{{zacetek}} -> {{konec}}, {{cas}} ure</option>
+                            % elif cas - cas//1 < 1:
+                            <option value="{{id}}">{{zacetek}} -> {{konec}}, {{cas}} ur</option>
+                            %else:
                             <option value="{{id}}">{{zacetek}} -> {{konec}}, {{cas}} ur</option>
                             %end
                         </select>

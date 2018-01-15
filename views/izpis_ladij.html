@@ -1,26 +1,50 @@
 %rebase('osnova.html', naslov='Izpis ladij', navigator='/IzpisLadij' )
 
 
-    <h1 class="naslov">Izpis ladij</h1>
+<h1 class="naslov">Izpis ladij</h1>
 
-    <p>
+<p>
     Tole bo stran, kjer bo prikazan seznam vseh ladij z njihovimi
     podatki, razen z osebnimi podatki potnikov.
-    </p>
-
-    % include('SeznamLadij.tpl', ladje=ladje)
+</p>
 
 
-    <form method="get" action="/">
-        <button class="gumb">Nazaj</button>
-    </form>
+<table class="table table-striped ">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Ime</th>
+        <th scope="col">Leto izdelave</th>
+        <th scope="col">Nosilnost</th>
+    </tr>
+    </thead>
+    <tbody>
 
-    <!--druga možnost:-->
-    <!--<form>-->
-        <!--<button formaction="/">Nazaj</button>-->
-    <!--</form>-->
+        %for id, ime, leto_izdelave, nosilnost in ladje:
+        <tr>
+            <th scope="row">{{id}}</th>
+            <td>{{ime}}</td>
+            <td>{{leto_izdelave}}</td>
+            <td>{{nosilnost}}</td>
+        </tr>
+        % end
 
-    <!--tretja možnost:-->
-    <!--<button onclick="window.history.go(-1)">Nazaj</button>-->
+    </tbody>
+</table>
+
+<!--% include('SeznamLadij.tpl', ladje=ladje)-->
+
+
+<form method="get" action="/">
+    <button class="gumb">Nazaj</button>
+</form>
+
+<!--druga možnost:-->
+<!--<form>-->
+<!--<button formaction="/">Nazaj</button>-->
+<!--</form>-->
+
+<!--tretja možnost:-->
+<!--<button onclick="window.history.go(-1)">Nazaj</button>-->
 
 
