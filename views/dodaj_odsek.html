@@ -1,0 +1,62 @@
+%rebase('osnova.html', naslov='Dodajanje odseka', navigator='/dodajOdsek' )
+
+
+	<h1 class="naslov">Dodajanje odseka.</h1>
+
+
+    <div class="vrstica">
+      <form method="POST" action="/administrator/dodaj_odsek_v_bazo">
+        <table>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam pristanišč</legend>
+                    <p>
+                        <label>Začetno pristanišče</label>
+                        <select name="id_zacetnega_pristanisca">
+                            %for id, pristanisce in pristanisca:
+                            <option value="{{id}}">{{pristanisce}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <tr>
+                <fieldset>
+                    <legend>Izbirni seznam pristanišč</legend>
+                    <p>
+                        <label>Končno pristanišče</label>
+                        <select name="id_koncnega_pristanisca">
+                            %for id, pristanisce in pristanisca:
+                            <option value="{{id}}">{{pristanisce}}</option>
+                            %end
+                        </select>
+                    </p>
+                </fieldset>
+            </tr>
+            <tr>
+                <td class="glava">
+                  Čas potovanja:
+                </td>
+                <td>
+                  <input type="text" name="cas_potovanja" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                  <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
+                </td>
+            </tr>
+        </table>
+
+      </form>
+    </div>
+
+    % include('SeznamOdsekov.tpl', odseki=odseki)
+
+
+	<form method="get" action="/administrator">
+        <button class="gumb">Nazaj</button>
+    </form>

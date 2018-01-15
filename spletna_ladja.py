@@ -53,6 +53,24 @@ def dodajLadjo():
         print("Zgodila se je napaka {} pri dodajanju ladje {}", e, ime)
     redirect('/administrator/dodaj_ladjo')
 
+# Načrt poti
+@get('/administrator/dodaj_nacrt_poti')
+def prikaziDodajNacrtPoti():
+    '''Prikaže stran za dodajanje načrta poti.'''
+    odseki = modeli.poisciVseOdseke()
+    pristanisca = modeli.poisciVsaPristanisca()
+    vsi_nacrti_poti = modeli.poisciVseNacrtePoti()
+    return template('dodaj_nacrt_poti.html', vsi_nacrti_poti=vsi_nacrti_poti, odseki=odseki, pristanisca=pristanisca)
+
+@post('/administrator/dodaj_nacrt_poti_v_bazo')
+def dodajNacrtPoti():
+    naziv_potovanja = request.forms.naziv_potovanja
+    try:
+        modeli.dodajNacrt_poti(naziv_potovanja)
+    except Exception as e:
+        print("Zgodila se je napaka {} pri dodajanju načrta poti: {}", e, naziv_potovanja)
+    redirect('/administrator/dodaj_nacrt_poti')
+
 # Pristanišče
 @get('/administrator/dodaj_pristanisce')
 def prikaziDodajPristanisce():
@@ -69,6 +87,50 @@ def dodajPristanisce():
         print("Zgodila se je napaka {} pri dodajanju pristanišča {}", e, pristanisce)
     redirect('/administrator/dodaj_pristanisce')
 
+@post('/administrator/dodaj_odsek_v_bazo')
+def dodajOdsek():
+    id_zacetnega_pristanisca = request.forms.id_zacetnega_pristanisca
+    id_koncnega_pristanisca = request.forms.id_koncnega_pristanisca
+    cas_potovanja = request.forms.cas_potovanja
+    try:
+        modeli.dodajOdsek(id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja)
+    except Exception as e:
+        print("Zgodila se je napaka {} pri dodajanju odseka {}", (e, (id_zacetnega_pristanisca, id_koncnega_pristanisca)))
+    redirect('/administrator/dodaj_nacrt_poti')
+
+# Ima odsek
+@post('/administrator/dodaj_ima_odsek_v_bazo')
+def dodajImaOdsek():
+    id_nacrta_poti = request.forms.id_nacrta_poti
+    id_odseka = request.forms.id_odseka
+    postanek = request.forms.postanek
+    try:
+        modeli.dodajIma_odsek(postanek, id_nacrta_poti, id_odseka)
+    except Exception as e:
+        print(e)
+    redirect('/administrator/dodaj_nacrt_poti')
+
+# Izvedba potovanja
+@get('/administrator/dodaj_izvedbo_potovanja')
+def prikaziDodajPotovanje():
+    '''Prikaže stran za dodajanje izvedbe potovanja.'''
+    nacrti_poti = modeli.poisciVseNacrtePoti()
+    ladje = modeli.poisciVseLadje()
+    return template('dodaj_izvedbo_potovanja', nacrti_poti=nacrti_poti, ladje=ladje)
+
+@post('/administrator/dodaj_izvedbo_potovanja_v_bazo')
+def dodajIzvedboPotovanja():
+    id_ladje = request.forms.id_ladje
+    id_nacrta_poti = request.forms.id_nacrta_poti
+    datum_zacetka = request.forms.datum_zacetka
+    try:
+        modeli.dodajIzvedbo_potovanja(datum_zacetka, id_nacrta_poti, id_ladje)
+    except Exception as e:
+        print(e)
+    redirect('/administrator/dodaj_izvedbo_potovanja')
+
+
+
 # Kabino
 @get('/administrator/dodaj_kabino')
 def prikaziDodajKabino():
@@ -77,6 +139,7 @@ def prikaziDodajKabino():
     vse_kabine = modeli.poisciVseKabine()
     vsi_tipi_kabin = modeli.poisciVseTipeKabin()
     return template('dodaj_kabino.html', ladje = ladje, kabine=vse_kabine, tipi_kabin= vsi_tipi_kabin)
+
 
 @post('/administrator/dodaj_kabino_v_bazo')
 def dodajKabino():
@@ -97,7 +160,8 @@ def prikaziCenoKabine():
     '''Prikaže stran za dodajanje kabine.'''
     vsi_tipi_kabin = modeli.poisciVseTipeKabin()
     vsa_potovanja = modeli.poisciVseNacrtePoti()
-    return template('dodaj_ceno_kabine.html', tipi_kabin = vsi_tipi_kabin, potovanja = vsa_potovanja)
+    vse_cene_kabin = modeli.poisciVseCeneKabin()
+    return template('dodaj_ceno_kabine.html', tipi_kabin = vsi_tipi_kabin, potovanja = vsa_potovanja, cene_kabin=vse_cene_kabin)
 
 @post('/administrator/dodaj_ceno_kabine_v_bazo')
 def dodajCenoKabine():
@@ -126,3 +190,12 @@ def glavniMenu():
 
 # Poženemo strežnik na vhodu 8080, glej http://localhost:8080/
 run(host='localhost', port=8080, reloader=True, debug=True)
+
+
+# Odsek
+# @get('/administrator/dodaj_odsek')
+# def prikaziDodajOdsek():
+#     '''Prikaže stran za dodajanje odsekov.'''
+#     pristanisca = modeli.poisciVsaPristanisca()
+#     odseki = modeli.poisciVseOdseke()
+#     return template('dodaj_odsek.html', odseki=odseki, pristanisca=pristanisca)
