@@ -5,12 +5,12 @@
 }
 
 .naslov{
-    color: lightblue;
+    color: #59a999;
     font-family: Optima;
 }
 
 .gumb {
-    background-color: lightblue;
+    background-color: #59a999;
     text-align : center;
     border-radius: 4px;
     border: none;
