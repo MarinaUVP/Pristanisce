@@ -4,21 +4,71 @@
   font-family: Arial
 }
 
+.topnav {
+    overflow: hidden;
+    background-color: #59a999;
+}
+
+.topnav a{
+    float: left;
+    text-align: center;
+    padding: 5px 10px;
+
+}
+
+.glava{
+    background-color: #cee4df;
+    text-align: center;
+    padding: 20px;
+}
+
 .naslov{
     color: #59a999;
     font-family: Verdana;
+    margin-top: 70px;
 }
 
+/*Oblikoavnje gumba*/
 .gumb {
     background-color: #59a999;
     text-align : center;
     border-radius: 4px;
     border: none;
     padding: 10px 14px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     font-size: 14px;
     color: white;
     font-family: Verdana;
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+}
+
+.gumb:hover{
+    background-color: #cee4df;
+    color: #59a999;
+}
+
+/*Oblikovanje tabel*/
+#tabele {
+    font-family: "Verdana";
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tabele td, #tabele th {
+    border: 2px solid #eff6f4;
+    padding: 8px;
+}
+
+#tabele tr:nth-child(even){background-color: #eff6f4;}
+
+#tabele tr:hover {background-color: #cee4df;}
+
+#tabele th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #59a999;
+    color: white;
 }
 
 /*.napis {
