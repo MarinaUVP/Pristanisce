@@ -1,0 +1,5 @@
+SELECT ime, priimek, Kabina.tip, cena
+FROM Vozovnica JOIN Potnik ON (Vozovnica.emso_potnika = Potnik.emso)
+JOIN Kabina ON (Vozovnica.id_kabine = Kabina.id)
+JOIN Cena_kabine ON (Vozovnica.id_izvedbe_potovanja = Cena_kabine.id_nacrt_poti)
+WHERE Cena_kabine.id_tip_kabine = Tip_kabine.id;

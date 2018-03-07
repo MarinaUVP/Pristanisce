@@ -131,7 +131,7 @@ def ustvariTabeloIzvedba_potovanja():
 def ustvariTabeloVozovnica():
     cur.execute("""
     CREATE TABLE Vozovnica (
-    emso_potnika            REFERENCES Potnik(id),
+    emso_potnika            REFERENCES Potnik(emso),
     id_kabine               REFERENCES Kabina(id),
     id_izvedbe_potovanja    REFERENCES Izvedba_potovanja(id),
     UNIQUE (emso_potnika, id_kabine, id_izvedbe_potovanja)
