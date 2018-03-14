@@ -47,7 +47,7 @@ def poisciVseLadje():
     return cur.fetchall()
 
 
-def poisciVseKabine():
+# def poisciVseKabine():
     '''Vrne podatke o vseh kabinah.
     Namesto Id ladje vrne ime ladje, ki ji kabina pripada.'''
     cur.execute("""

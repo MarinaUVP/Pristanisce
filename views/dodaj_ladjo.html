@@ -1,17 +1,16 @@
 %rebase('osnova.html', naslov='Dodajanje ladij', navigator='/dodajLadjo' )
 
 
-	<h1 class="naslov">Dodajanje ladij.</h1>
+	<h1 class="naslov">Dodajanje ladij</h1>
 	<p>
 		Vpišite podatke za ladjo, ki jo želite dodati.
 	</p>
 
-   Vnos nove ladje
-    <div class="vrstica">
+    <div>
       <form method="POST" action="/administrator/dodaj_ladjo_v_bazo">
         <table>
             <tr>
-                <td class="glava">
+                <td>
                   Ime:
                 </td>
                 <td>
@@ -19,7 +18,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="glava">
+                <td>
                   Leto izdelave:
                 </td>
                 <td>
@@ -27,7 +26,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="glava">
+                <td>
                   Nosilnost:
                 </td>
                 <td>
@@ -38,8 +37,8 @@
                 <td>
                     &nbsp;
                 </td>
-                <td class="gumb_dodaj">
-                  <input type="submit" value="Dodaj" name="dodaj" class="gumbi"/>
+                <td>
+                  <input type="submit" value="Dodaj" name="dodaj" class="gumb"/>
                 </td>
             </tr>
         </table>
