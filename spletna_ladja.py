@@ -31,7 +31,8 @@ def izpisiKabine():
 
 @get('/potovanje')
 def prikaziPotovanja():
-    return template('potovanje.html')
+    potovanje = modeli.poisciVsaPotovanja()
+    return template('potovanje.html', potovanje=potovanje)
 
 ############  DODAJANJE  ##############
 

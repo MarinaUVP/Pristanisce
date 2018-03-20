@@ -6,6 +6,33 @@
 	Načrtovanje potovanja.
 	</p>
 
+    <table id="tabele">
+        <thead>
+        <tr>
+            <th scope="col">Naziv potovanja</th>
+            <th scope="col">Datum začetka</th>
+            <th scope="col">Ladja</th>
+            <th scope="col">Tip kabine</th>
+			<th scope="col">Cena kabine</th>
+			<th scope="col">Število ležišč</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            %for naziv_potovanja, datum_zacetka, ladja, tip_kabine, cena_kabine, stevilo_lezisc in potovanje:
+            <tr>
+                <td scope="row">{{naziv_potovanja}}</td>
+                <td>{{datum_zacetka}}</td>
+                <td>{{ladja}}</td>
+				<td>{{tip_kabine}}</td>
+				<td>{{cena_kabine}}</td>
+				<td>{{stevilo_lezisc}}</td>
+            </tr>
+            % end
+
+        </tbody>
+    </table>
+
 	<form method="get" action="/">
         <button class="gumb">Nazaj</button>
     </form>
