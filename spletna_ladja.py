@@ -185,6 +185,16 @@ def dodajCenoKabine():
 def glavniMenu():
     return template('administrator.html')
 
+@get('/prikazi_prijavo')
+def priakzi_admin():
+    return template('prijava_admin.html')
+
+@post("/prijavi_administratorja")
+def preveriAdministratorja():
+    uporabnisko_ime = request.forms.UI
+    geslo = request.forms.geslo
+    # /preveri identiteto v bazi
+    redirect('/administrator')
 
 #=================================================
 

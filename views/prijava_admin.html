@@ -1,0 +1,35 @@
+%rebase('osnova.html', naslov="Prijava administratorja", navigator='/prijava_admin')
+
+    <form method="POST" action="/prijavi_administratorja">
+        <table>
+            <tr>
+                <td>
+                  Uporabniško ime:
+                </td>
+                <td>
+                  <input type="text" name="UI" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                  Geslo:
+                </td>
+                <td>
+                  <input type="text" name="geslo" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                  <input type="submit" value="Potrdi" name="potrdi" class="gumb"/>
+                </td>
+            </tr>
+        </table>
+
+      </form>
+
+	<form method="get" action="/administrator">
+        <button class="gumb">Nazaj</button>
+    </form>
