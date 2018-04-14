@@ -1,6 +1,14 @@
 <!-- Izpis načrtov poti -->
-    <ul>
+
+<table id="tabele">
+    <thead>
+        <th scope="coč">Že dodeljeni nazivi potovanj</th>
+    </thead>
+    <tbody>
         %for (id, naziv_poti) in vsi_nacrti_poti:
-        <li>{{naziv_poti}}</li>
-        %end
-    </ul>
+            <tr>
+                <td>{{naziv_poti}}</td>
+            </tr>
+        % end
+    </tbody>
+</table>
