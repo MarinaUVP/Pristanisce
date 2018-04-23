@@ -14,19 +14,33 @@
             <th scope="col">Ladja</th>
             <th scope="col">Tip kabine</th>
 			<th scope="col">Cena kabine</th>
-			<th scope="col">Število ležišč</th>
+			<th scope="col">Ležišča</th>
+            <th scope="col">Vozovnice</th>
+            <th scope="col">Nakup</th>
         </tr>
         </thead>
         <tbody>
 
             %for naziv_potovanja, datum_zacetka, ladja, tip_kabine, cena_kabine, stevilo_lezisc in potovanje:
             <tr>
+
                 <td scope="row">{{naziv_potovanja}}</td>
                 <td>{{datum_zacetka}}</td>
                 <td>{{ladja}}</td>
-				<td>{{tip_kabine}}</td>
-				<td>{{cena_kabine}}</td>
-				<td>{{stevilo_lezisc}}</td>
+                <td>{{tip_kabine}}</td>
+                <td>{{cena_kabine}}</td>
+                <td>{{stevilo_lezisc}}</td>
+                <form method="post" action="/nakup_vozovnice">
+                    <script>
+                    document.write('<INPUT type=hidden value='+naziv_potovanja+' name=naziv>');
+                    </script>
+
+
+                    <input type="hidden" value={{naziv_potovanja}} name="datum_zacetka"/>
+
+                    <td><input type="number" name="stevilo_vozovnic" value="0" min="0" max="{{stevilo_lezisc}}"></td>
+                    <td><button class="gumb">Nadaljuj na nakup vozovnice</button></td>
+                </form>
             </tr>
             % end
 

@@ -2,10 +2,12 @@ import modeli as modeli
 from bottle import *
 from datetime import datetime
 
+
 # Naložimo CSS datoteko
 @get('/static/<filename:path>')
 def static(filename):
     return static_file(filename, root='static')
+
 
 # Glavni meni
 @get('/')
@@ -14,27 +16,40 @@ def glavniMenu():
 
 ############  IZPISOVANJE  #############
 
+
 @get('/izpis_pristanisc')
 def prikaziPristanisca():
     pristanisca = modeli.poisciVsaPristanisca()
     return template('izpis_pristanisc.html', pristanisca = pristanisca)
+
 
 @get('/izpis_ladij')
 def prikaziLadje():
     vse_ladje = modeli.poisciVseLadje()
     return template('izpis_ladij.html', ladje = vse_ladje)
 
+
 @get('/izpis_kabin')
 def izpisiKabine():
     vse_kabine = modeli.poisciVseKabine()
     return template('izpis_kabin.html', kabine = vse_kabine)
+
 
 @get('/potovanje')
 def prikaziPotovanja():
     potovanje = modeli.poisciVsaPotovanja()
     return template('potovanje.html', potovanje=potovanje)
 
+@post('/nakup_vozovnice')
+def kupiVozovnico():
+    naziv_potovanja = request.forms.naziv_potovanja
+    datum_zacetka = request.forms.datum_zacetka
+    return template('nakup_vozovnice', datum_zacetka=datum_zacetka, naziv_potovanja=naziv_potovanja)
+
+
+
 ############  DODAJANJE  ##############
+
 
 # Ladjo
 @get('/administrator/dodaj_ladjo')
@@ -42,6 +57,7 @@ def prikaziDodajLadjo():
     '''Prikaže stran za dodajanje novih ladij.'''
     vse_ladje = modeli.poisciVseLadje()
     return template('dodaj_ladjo.html', ladje=vse_ladje)
+
 
 @post('/administrator/dodaj_ladjo_v_bazo')
 def dodajLadjo():
@@ -54,6 +70,7 @@ def dodajLadjo():
         print("Zgodila se je napaka {} pri dodajanju ladje {}", e, ime)
     redirect('/administrator/dodaj_ladjo')
 
+
 # Načrt poti
 @get('/administrator/dodaj_nacrt_poti')
 def prikaziDodajNacrtPoti():
@@ -62,6 +79,7 @@ def prikaziDodajNacrtPoti():
     pristanisca = modeli.poisciVsaPristanisca()
     vsi_nacrti_poti = modeli.poisciVseNacrtePoti()
     return template('dodaj_nacrt_poti.html', vsi_nacrti_poti=vsi_nacrti_poti, odseki=odseki, pristanisca=pristanisca)
+
 
 @post('/administrator/dodaj_nacrt_poti_v_bazo')
 def dodajNacrtPoti():
@@ -72,12 +90,14 @@ def dodajNacrtPoti():
         print("Zgodila se je napaka {} pri dodajanju načrta poti: {}", e, naziv_potovanja)
     redirect('/administrator/dodaj_nacrt_poti')
 
+
 # Pristanišče
 @get('/administrator/dodaj_pristanisce')
 def prikaziDodajPristanisce():
     '''Prikaže stran za dodajanje pristanišč.'''
     pristanisca = modeli.poisciVsaPristanisca()
     return template('dodaj_pristanisce.html', pristanisca=pristanisca)
+
 
 @post('/administrator/dodaj_pristanisce_v_bazo')
 def dodajPristanisce():
@@ -87,6 +107,7 @@ def dodajPristanisce():
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju pristanišča {}", e, pristanisce)
     redirect('/administrator/dodaj_pristanisce')
+
 
 @post('/administrator/dodaj_odsek_v_bazo')
 def dodajOdsek():
@@ -98,6 +119,7 @@ def dodajOdsek():
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju odseka {}", (e, (id_zacetnega_pristanisca, id_koncnega_pristanisca)))
     redirect('/administrator/dodaj_nacrt_poti')
+
 
 # Ima odsek
 @post('/administrator/dodaj_ima_odsek_v_bazo')
@@ -111,6 +133,7 @@ def dodajImaOdsek():
         print(e)
     redirect('/administrator/dodaj_nacrt_poti')
 
+
 # Izvedba potovanja
 @get('/administrator/dodaj_izvedbo_potovanja')
 def prikaziDodajPotovanje():
@@ -118,6 +141,7 @@ def prikaziDodajPotovanje():
     nacrti_poti = modeli.poisciVseNacrtePoti()
     ladje = modeli.poisciVseLadje()
     return template('dodaj_izvedbo_potovanja', nacrti_poti=nacrti_poti, ladje=ladje)
+
 
 @post('/administrator/dodaj_izvedbo_potovanja_v_bazo')
 def dodajIzvedboPotovanja():
@@ -202,12 +226,3 @@ def preveriAdministratorja():
 
 # Poženemo strežnik na vhodu 8080, glej http://localhost:8080/
 run(host='localhost', port=8080, reloader=True, debug=True)
-
-
-# Odsek
-# @get('/administrator/dodaj_odsek')
-# def prikaziDodajOdsek():
-#     '''Prikaže stran za dodajanje odsekov.'''
-#     pristanisca = modeli.poisciVsaPristanisca()
-#     odseki = modeli.poisciVseOdseke()
-#     return template('dodaj_odsek.html', odseki=odseki, pristanisca=pristanisca)
