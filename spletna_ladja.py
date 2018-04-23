@@ -187,7 +187,8 @@ def glavniMenu():
 
 @get('/prikazi_prijavo')
 def priakzi_admin():
-    return template('prijava_admin.html')
+    # return template('prijava_admin.html')
+    redirect('/administrator')
 
 @post("/prijavi_administratorja")
 def preveriAdministratorja():
