@@ -64,7 +64,7 @@ def dodajVozovnico():
     priimek = request.forms.priimek
     emso = request.forms.emso
     try:
-        modeli.dodajVozovnico(stevilo_vozovnic, id_potovanja, id_kabine, ime, priimek)
+        # modeli.dodajVozovnico(stevilo_vozovnic, id_potovanja, id_kabine, ime, priimek)
         return template('potrdilo_nakupa.html')
     except Exception as e:
         print("Zgodila se je napaka {} pri nakupu vozovnice.".format(e))

@@ -30,5 +30,5 @@
 
         </tbody>
 
-    </tabele>
+    </table>
 
