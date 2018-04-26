@@ -43,10 +43,17 @@ def prikaziPotovanja():
 @post('/nakup_vozovnice')
 def kupiVozovnico():
     stevilo_vozovnic = request.forms.stevilo_vozovnic
-    naziv_potovanja = request.forms.naziv_potovanja
-    datum_zacetka = request.forms.datum_zacetka
-    ladja = request.forms.ladja
-    return template('nakup_vozovnice', datum_zacetka=datum_zacetka, naziv_potovanja=naziv_potovanja, stevilo_vozovnic=stevilo_vozovnic, ladja=ladja)
+    if int(stevilo_vozovnic) == 0:
+        redirect('/potovanje')
+    id_potovanja = request.forms.id_potovanja
+    id_kabine = request.forms.id_kabine
+    return template('nakup_vozovnice.html',stevilo_vozovnic=stevilo_vozovnic,
+                    id_potovanja=id_potovanja, id_kabine=id_kabine)
+
+@get('/administrator/kupljene_vozovnice')
+def prikaziKupljeneVozovnice():
+    vozovnice = modeli.poisciVseVozovnice()
+    return template('kupljene_vozovnice.html', vozovnice=vozovnice)
 
 
 
@@ -202,8 +209,6 @@ def dodajCenoKabine():
     except Exception as e:
         print("Zgodila se je napaka {} pri dodajanju cene kabine {} na potovanju {}.".format(e, id_tip_kabine, id_potovanje))
     redirect('/administrator/dodaj_ceno_kabine')
-
-
 
 
 

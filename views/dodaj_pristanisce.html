@@ -1,38 +1,38 @@
 %rebase('osnova.html', naslov='Dodajanje pristanišča', navigator='/dodajPristanišče' )
 
 
-	<h1 class="naslov">Dodajanje posameznih pristanišč.</h1>
-	<p>
-		Vpišite podatke za pristanišče, ki ga želite dodati.
-	</p>
+    <h1 class="naslov">Dodajanje posameznih pristanišč.</h1>
+    <p>
+        Vpišite podatke za pristanišče, ki ga želite dodati.
+    </p>
 
     <div>
-      <form method="POST" action="/administrator/dodaj_pristanisce_v_bazo">
-        <table>
-            <tr>
-                <td>
-                  Pristanišče:
-                </td>
-                <td>
-                  <input type="text" name="pristanisce" value=""/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-                <td>
-                  <input type="submit" value="Dodaj" name="dodaj" class="gumb"/>
-                </td>
-            </tr>
-        </table>
+        <form method="POST" action="/administrator/dodaj_pristanisce_v_bazo">
+            <table>
+                <tr>
+                    <td>
+                        Pristanišče:
+                    </td>
+                    <td>
+                        <input type="text" name="pristanisce" value=""/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <input type="submit" value="Dodaj" name="dodaj" class="gumb"/>
+                    </td>
+                </tr>
+            </table>
 
-      </form>
+        </form>
     </div>
 
     % include('SeznamPristanisc.tpl', pristanisca=pristanisca)
 
 
-	<form method="get" action="/administrator">
+    <form method="get" action="/administrator">
         <button class="gumb">Nazaj</button>
     </form>

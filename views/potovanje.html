@@ -21,7 +21,7 @@
         </thead>
         <tbody>
 
-                %for id, naziv_potovanja, datum_zacetka, ladja, tip_kabine, cena_kabine, stevilo_lezisc in potovanje:
+                %for id_potovanja, id_kabine, naziv_potovanja, datum_zacetka, ladja, tip_kabine, cena_kabine, stevilo_lezisc in potovanje:
                     <tr>
 
                         <td scope="row">{{naziv_potovanja}}</td>
@@ -32,9 +32,11 @@
                         <td>{{stevilo_lezisc}}</td>
 
                         <form method="post" action="/nakup_vozovnice">
-                            <input type="hidden" value="{{naziv_potovanja}}" name="naziv_potovanja"/>
-                            <input type="hidden" value="{{datum_zacetka}}" name="datum_zacetka"/>
-                            <input type="hidden" value="{{ladja}}" name="ladja"/>
+                            <!--<input type="hidden" value="{{naziv_potovanja}}" name="naziv_potovanja"/>-->
+                            <!--<input type="hidden" value="{{datum_zacetka}}" name="datum_zacetka"/>-->
+                            <!--<input type="hidden" value="{{ladja}}" name="ladja"/>-->
+                            <input type="hidden" value="{{id_potovanja}}" name="id_potovanja">
+                            <input type="hidden" value="{{id_kabine}}" name="id_kabine">
 
                             <td><input type="number" name="stevilo_vozovnic" value="0" min="0" max="{{stevilo_lezisc}}"></td>
                             <td><button class="gumb">Nadaljuj na nakup vozovnice</button></td>
