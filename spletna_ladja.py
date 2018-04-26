@@ -42,13 +42,13 @@ def prikaziPotovanja():
 
 @post('/nakup_vozovnice')
 def kupiVozovnico():
-    stevilo_vozovnic = request.forms.stevilo_vozovnic
-    if int(stevilo_vozovnic) == 0:
+    stevilo_lezisc = request.forms.stevilo_lezisc
+    if int(stevilo_lezisc) == 0:
         redirect('/potovanje')
-    id_potovanja = request.forms.id_potovanja
+    id_izvedbe_potovanja = request.forms.id_izvedbe_potovanja
     id_kabine = request.forms.id_kabine
-    return template('nakup_vozovnice.html',stevilo_vozovnic=stevilo_vozovnic,
-                    id_potovanja=id_potovanja, id_kabine=id_kabine)
+    return template('nakup_vozovnice.html',stevilo_lezisc=stevilo_lezisc,
+                    id_izvedbe_potovanja=id_izvedbe_potovanja, id_kabine=id_kabine)
 
 @get('/administrator/kupljene_vozovnice')
 def prikaziKupljeneVozovnice():
@@ -57,14 +57,14 @@ def prikaziKupljeneVozovnice():
 
 @post('/administrator/dodaj_vozovnico_v_bazo')
 def dodajVozovnico():
-    stevilo_vozovnic = request.forms.stevilo_vozovnic
-    id_potovanja = request.forms.id_potovanja
+    stevilo_lezisc = request.forms.stevilo_lezisc
+    id_izvedbe_potovanja = request.forms.id_izvedbe_potovanja
     id_kabine = request.forms.id_kabine
     ime = request.forms.ime
     priimek = request.forms.priimek
     emso = request.forms.emso
     try:
-        modeli.dodajVozovnico(stevilo_vozovnic, id_potovanja, id_kabine, ime, priimek)
+        modeli.dodajVozovnico(stevilo_lezisc, id_izvedbe_potovanja, id_kabine, ime, priimek, emso)
         return template('potrdilo_nakupa.html')
     except Exception as e:
         print("Zgodila se je napaka {} pri nakupu vozovnice.".format(e))
@@ -149,9 +149,9 @@ def dodajOdsek():
 def dodajImaOdsek():
     id_nacrta_poti = request.forms.id_nacrta_poti
     id_odseka = request.forms.id_odseka
-    postanek = request.forms.postanek
+    odhod = request.forms.odhod
     try:
-        modeli.dodajIma_odsek(postanek, id_nacrta_poti, id_odseka)
+        modeli.dodajIma_odsek(odhod, id_nacrta_poti, id_odseka)
     except Exception as e:
         print(e)
     redirect('/administrator/dodaj_nacrt_poti')

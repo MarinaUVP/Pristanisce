@@ -15,13 +15,14 @@
             <th scope="col">Tip kabine</th>
 			<th scope="col">Cena kabine</th>
 			<th scope="col">Ležišča</th>
+            <th scope="col">Zasedenost</th>
             <th scope="col">Vozovnice</th>
             <th scope="col">Nakup</th>
         </tr>
         </thead>
         <tbody>
 
-                %for id_potovanja, id_kabine, naziv_potovanja, datum_zacetka, ladja, tip_kabine, cena_kabine, stevilo_lezisc in potovanje:
+                %for id_izvedbe_potovanja, id_kabine, naziv_potovanja, datum_zacetka, ladja, tip_kabine, cena_kabine, stevilo_lezisc, zasedenost in potovanje:
                     <tr>
 
                         <td scope="row">{{naziv_potovanja}}</td>
@@ -30,15 +31,13 @@
                         <td>{{tip_kabine}}</td>
                         <td>{{cena_kabine}}</td>
                         <td>{{stevilo_lezisc}}</td>
+                        <td>{{zasedenost}}</td>
 
                         <form method="post" action="/nakup_vozovnice">
-                            <!--<input type="hidden" value="{{naziv_potovanja}}" name="naziv_potovanja"/>-->
-                            <!--<input type="hidden" value="{{datum_zacetka}}" name="datum_zacetka"/>-->
-                            <!--<input type="hidden" value="{{ladja}}" name="ladja"/>-->
-                            <input type="hidden" value="{{id_potovanja}}" name="id_potovanja">
+                            <input type="hidden" value="{{id_izvedbe_potovanja}}" name="id_izvedbe_potovanja">
                             <input type="hidden" value="{{id_kabine}}" name="id_kabine">
 
-                            <td><input type="number" name="stevilo_vozovnic" value="0" min="0" max="{{stevilo_lezisc}}"></td>
+                            <td><input type="number" name="stevilo_lezisc" value="0" min="0" max="{{stevilo_lezisc - zasedenost}}"></td>
                             <td><button class="gumb_nakup">Nadaljuj na nakup vozovnice</button></td>
                         </form>
                     </tr>
