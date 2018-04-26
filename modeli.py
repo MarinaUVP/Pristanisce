@@ -86,7 +86,7 @@ def poisciVseCeneKabin():
 def poisciVsaPotovanja():
     """Poišče vse podatke o potovanjih."""
     cur.execute("""
-        SELECT naziv_potovanja, datum_zacetka, Ladja.ime, Tip_kabine.tip, cena, Kabina.stevilo_lezisc
+        SELECT Izvedba_potovanja.id, naziv_potovanja, datum_zacetka, Ladja.ime, Tip_kabine.tip, cena, Kabina.stevilo_lezisc
         FROM Izvedba_potovanja
         JOIN Ladja ON (Ladja.id = Izvedba_potovanja.id_ladje)
         JOIN Nacrt_poti ON (Nacrt_poti.id = Izvedba_potovanja.id_nacrta_poti)
@@ -201,6 +201,40 @@ def dodajNacrt_poti(naziv_potovanja):
         """, (naziv_potovanja,))
     con.commit()
 
+############### RAZNO ################
+
+def potrebnoDolocitiCenoV1():
+    """Izpis kombinacij, za katere še nismo določili cene kabin."""
+    # Problem je, da spodnja koda ne deluje. Javi sytax error near ",". V SQLiteStudio pa dela.
+    cur.execute("""
+        SELECT naziv_potovanja, tip FROM Nacrt_poti
+        JOIN Tip_kabine
+        WHERE (Nacrt_poti.id, Tip_kabine.id) NOT IN
+        (SELECT Cena_kabine.id_nacrt_poti, Cena_kabine.id_tip_kabine FROM Cena_kabine);
+    """)
+    cur.fetchall()
+
+
+def potrebnoDolocitiCeno():
+    """IZPIS kombinacij, za katere še NISMO DOLOČILI CENE KABIN."""
+    cur.execute("""SELECT Cena_kabine.id_nacrt_poti, Cena_kabine.id_tip_kabine FROM Cena_kabine""")
+    doloceneKabine = cur.fetchall()
+    cur.execute("""
+        SELECT naziv_potovanja, tip, Nacrt_poti.id, Tip_kabine.id FROM Nacrt_poti
+        JOIN Tip_kabine;
+        """)
+    vseKabine = cur.fetchall()
+    nedoloceneKabine = []
+    for naziv_potovanja, tip, nacrt_poti_id, tip_kabine_id in vseKabine:
+        if (nacrt_poti_id, tip_kabine_id) not in doloceneKabine:
+            nedoloceneKabine.append((naziv_potovanja, tip))
+    return nedoloceneKabine
 
 
 
+def poisciVseVozovnice():
+    """Vrne podatke o vseh vozovnicah."""
+    cur.execute("""
+        SELECT *
+        FROM Vozovnica""")
+    return cur.fetchall()

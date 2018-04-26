@@ -42,9 +42,11 @@ def prikaziPotovanja():
 
 @post('/nakup_vozovnice')
 def kupiVozovnico():
+    stevilo_vozovnic = request.forms.stevilo_vozovnic
     naziv_potovanja = request.forms.naziv_potovanja
     datum_zacetka = request.forms.datum_zacetka
-    return template('nakup_vozovnice', datum_zacetka=datum_zacetka, naziv_potovanja=naziv_potovanja)
+    ladja = request.forms.ladja
+    return template('nakup_vozovnice', datum_zacetka=datum_zacetka, naziv_potovanja=naziv_potovanja, stevilo_vozovnic=stevilo_vozovnic, ladja=ladja)
 
 
 
@@ -186,7 +188,8 @@ def prikaziCenoKabine():
     vsi_tipi_kabin = modeli.poisciVseTipeKabin()
     vsa_potovanja = modeli.poisciVseNacrtePoti()
     vse_cene_kabin = modeli.poisciVseCeneKabin()
-    return template('dodaj_ceno_kabine.html', tipi_kabin = vsi_tipi_kabin, potovanja = vsa_potovanja, cene_kabin=vse_cene_kabin)
+    nedolocene_cene_kabin = modeli.potrebnoDolocitiCeno()
+    return template('dodaj_ceno_kabine.html', tipi_kabin = vsi_tipi_kabin, potovanja = vsa_potovanja, cene_kabin=vse_cene_kabin, nedolocene_cene_kabin=nedolocene_cene_kabin)
 
 @post('/administrator/dodaj_ceno_kabine_v_bazo')
 def dodajCenoKabine():
