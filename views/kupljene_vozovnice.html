@@ -3,11 +3,8 @@
 
 	<h1 class="naslov">Kupljene vozovnice</h1>
 
-    % for vozovnica in vozovnice:
-    <li> {{vozovnica}} </li>
-    % end
+    % include('KupljeneVozovnice.tpl', vozovnice=vozovnice)
 
-
-	<form method="get" action="/">
+	<form method="get" action="/administrator">
         <button class="gumb">Nazaj</button>
     </form>
