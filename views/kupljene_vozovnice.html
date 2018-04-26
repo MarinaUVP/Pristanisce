@@ -1,0 +1,13 @@
+%rebase('osnova.html', naslov='Kupljene vozovnice')
+
+
+	<h1 class="naslov">Kupljene vozovnice</h1>
+
+    % for vozovnica in vozovnice:
+    <li> {{vozovnica}} </li>
+    % end
+
+
+	<form method="get" action="/">
+        <button class="gumb">Nazaj</button>
+    </form>

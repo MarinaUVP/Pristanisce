@@ -36,7 +36,7 @@ ORDER BY cas_potovanja DESC;
 -- VOZOVNICA
 
 -- Podatki, vezani na posamezno vozovnico
-SELECT Potnik.ime, Potnik.priimek, Tip_kabine.tip, cena, Nacrt_poti.naziv_potovanja, Izvedba_potovanja.datum_zacetka
+SELECT Potnik.ime, Potnik.priimek, Tip_kabine.tip, cena, Vozovnica.stevilo_lezisc, Nacrt_poti.naziv_potovanja, Izvedba_potovanja.datum_zacetka
 FROM Ima_vozovnico
 JOIN Potnik ON (Potnik.emso = Ima_vozovnico.emso_potnika)
 JOIN Vozovnica ON (Vozovnica.id = Ima_vozovnico.id_vozovnice)

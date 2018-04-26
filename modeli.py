@@ -25,8 +25,19 @@ def poisciVsePotnike():
 def poisciVseVozovnice():
     """Vrne podatke o vseh vozovnicah."""
     cur.execute("""
-        SELECT *
-        FROM Vozovnica""")
+        SELECT Potnik.ime, Potnik.priimek, Tip_kabine.tip, cena, Vozovnica.stevilo_lezisc, Nacrt_poti.naziv_potovanja, Izvedba_potovanja.datum_zacetka
+        FROM Ima_vozovnico
+        JOIN Potnik ON (Potnik.emso = Ima_vozovnico.emso_potnika)
+        JOIN Vozovnica ON (Vozovnica.id = Ima_vozovnico.id_vozovnice)
+        JOIN Izvedba_potovanja ON (Vozovnica.id_izvedbe_potovanja = Izvedba_potovanja.id)
+        JOIN Nacrt_poti ON (Nacrt_poti.id = Izvedba_potovanja.id_nacrta_poti)
+        JOIN Ladja ON (Izvedba_potovanja.id_ladje = Ladja.id)
+        JOIN Kabina ON (Vozovnica.id_kabine = Kabina.id) --pridružiš kabino, ki je vezana na vozovnico
+        JOIN Tip_kabine ON (Kabina.tip = Tip_kabine.id)
+        LEFT JOIN Cena_kabine ON (Cena_kabine.id_nacrt_poti = Nacrt_poti.id)
+        WHERE Cena_kabine.id_tip_kabine = Tip_kabine.id
+        ORDER BY Potnik.emso, Izvedba_potovanja.datum_zacetka;
+        """)
     return cur.fetchall()
 
 def poisciVseOdseke():
@@ -86,7 +97,7 @@ def poisciVseCeneKabin():
 def poisciVsaPotovanja():
     """Poišče vse podatke o potovanjih."""
     cur.execute("""
-        SELECT Izvedba_potovanja.id, naziv_potovanja, datum_zacetka, Ladja.ime, Tip_kabine.tip, cena, Kabina.stevilo_lezisc
+        SELECT Izvedba_potovanja.id, Kabina.id, naziv_potovanja, datum_zacetka, Ladja.ime, Tip_kabine.tip, cena, Kabina.stevilo_lezisc
         FROM Izvedba_potovanja
         JOIN Ladja ON (Ladja.id = Izvedba_potovanja.id_ladje)
         JOIN Nacrt_poti ON (Nacrt_poti.id = Izvedba_potovanja.id_nacrta_poti)
@@ -118,7 +129,6 @@ def poisciPotnika(ime, priimek):
         SELECT emso, ime, priimek FROM Potnik
         WHERE ime = ? AND PRIIMEK = ?;""", (ime, priimek))
     return cur.fetchone()
-
 
 
 
@@ -232,9 +242,3 @@ def potrebnoDolocitiCeno():
 
 
 
-def poisciVseVozovnice():
-    """Vrne podatke o vseh vozovnicah."""
-    cur.execute("""
-        SELECT *
-        FROM Vozovnica""")
-    return cur.fetchall()
