@@ -97,7 +97,13 @@ def poisciVseCeneKabin():
 def poisciVsaPotovanja():
     """Poišče vse podatke o potovanjih."""
     cur.execute("""
-        SELECT Izvedba_potovanja.id, Kabina.id, naziv_potovanja, datum_zacetka, Ladja.ime, Tip_kabine.tip, cena, Kabina.stevilo_lezisc
+        SELECT Izvedba_potovanja.id, Kabina.id, naziv_potovanja, datum_zacetka, Ladja.ime, Tip_kabine.tip, cena, Kabina.stevilo_lezisc, 
+              coalesce((SELECT SUM(Vozovnica.stevilo_lezisc)
+                    FROM Vozovnica
+                    JOIN Izvedba_potovanja AS x ON (Vozovnica.id_izvedbe_potovanja = x.id)
+                    JOIN Kabina AS y ON (Vozovnica.id_kabine = y.id)
+                    WHERE x.id = Izvedba_potovanja.id AND y.id = Kabina.id
+              GROUP BY y.id, x.id),0) AS 'zasedenost'
         FROM Izvedba_potovanja
         JOIN Ladja ON (Ladja.id = Izvedba_potovanja.id_ladje)
         JOIN Nacrt_poti ON (Nacrt_poti.id = Izvedba_potovanja.id_nacrta_poti)
@@ -134,6 +140,35 @@ def poisciPotnika(ime, priimek):
 
 ################ DODAJANJE #####################
 
+def dodajVozovnico(stevilo_lezisc, id_izvedbe_potovanja, id_kabine, ime, priimek, emso):
+    '''Doda vozovnico. Doda potnika, če ta še ne obstaja.'''
+    # Najprej dodamo potnika, če ta še ne obstaja v bazi
+    if poisciPotnika(ime, priimek) is None or str(poisciPotnika(ime, priimek)[0]) != str(emso):
+        # Tega potnika še nimamo v bazi, zato ga moramo dodati
+        cur.execute("""
+            INSERT INTO Potnik (emso, ime, priimek)
+            VALUES (?, ?, ?);
+            """, (emso, ime, priimek))
+        con.commit()
+    # Sedaj ustvarimo vozovnico
+    print(id_kabine, id_izvedbe_potovanja, stevilo_lezisc)
+    cur.execute("""
+        INSERT INTO Vozovnica (id_kabine, id_izvedbe_potovanja, stevilo_lezisc)
+            VALUES (?, ?, ?);
+        """, (id_kabine, id_izvedbe_potovanja, stevilo_lezisc))
+    cur.execute("""
+        SELECT last_insert_rowid();""")
+    id_vozovnice = cur.fetchone()[0];
+    print("Vozovnica, ki smo jo dodali ima id {}".format(id_vozovnice))
+    # Povežemo še potnika z vozovnico.
+    cur.execute("""
+        INSERT INTO Ima_vozovnico (emso_potnika, id_vozovnice)
+        VALUES (?, ?);
+    """, (emso, id_vozovnice))
+    con.commit()
+
+
+
 def dodajLadjo(ime, leto_izdelave, nosilnost):
     """Doda novo ladjo v tabelo Ladja"""
     cur.execute("""
@@ -165,11 +200,11 @@ def dodajOdsek(id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja)
         """, (id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja))
     con.commit()
 
-def dodajIma_odsek(postanek, id_nacrta_poti, id_odseka):
+def dodajIma_odsek(odhod, id_nacrta_poti, id_odseka):
     cur.execute("""
-        INSERT INTO Ima_odsek (postanek, id_nacrta_poti, id_odseka_poti)
+        INSERT INTO Ima_odsek (odhod, id_nacrta_poti, id_odseka_poti)
         VALUES (?, ?, ?);
-        """, (postanek, id_nacrta_poti, id_odseka))
+        """, (odhod, id_nacrta_poti, id_odseka))
     con.commit()
 
 def dodajIzvedbo_potovanja(datum_zacetka, id_nacrta_poti, id_ladje):

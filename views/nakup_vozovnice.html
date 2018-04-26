@@ -2,13 +2,8 @@
 
 
     <h1 class="naslov">Nakup vozovnice</h1>
-
-    <div>
-        Število vozovnic: {{stevilo_vozovnic}}
-        Id potovanja: {{id_potovanja}}
-        Id kabine = {{id_kabine}}
-    </div>
-
+    Pravkar kupujete vozovnico za sledeče število ležišč: {{stevilo_lezisc}}
+    <div>Prosimo, vpišite svoje podatke.</div>
     <div>
         <form method="POST" action="/administrator/dodaj_vozovnico_v_bazo">
             <table>
@@ -41,6 +36,9 @@
                         &nbsp;
                     </td>
                     <td>
+                        <input type="hidden" value="{{stevilo_lezisc}}", name="stevilo_lezisc"/>
+                        <input type="hidden" value="{{id_izvedbe_potovanja}}", name="id_izvedbe_potovanja"/>
+                        <input type="hidden" value="{{id_kabine}}", name="id_kabine"/>
                         <input type="submit" value="Potrdi nakup vozovnice" name="dodaj" class="gumb"/>
                     </td>
                 </tr>

@@ -72,7 +72,7 @@ def ustvariTabeloOdsek():
 def ustvariTabeloIma_odsek():
     cur.execute("""
         CREATE TABLE Ima_odsek (
-        postanek         INTEGER,
+        odhod         DATE,
         id_nacrta_poti      REFERENCES Nacrt_poti (id),
         id_odseka_poti      REFERENCES Odsek (id)
         );
