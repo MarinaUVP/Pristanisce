@@ -55,6 +55,20 @@ def prikaziKupljeneVozovnice():
     vozovnice = modeli.poisciVseVozovnice()
     return template('kupljene_vozovnice.html', vozovnice=vozovnice)
 
+@post('/administrator/dodaj_vozovnico_v_bazo')
+def dodajVozovnico():
+    stevilo_vozovnic = request.forms.stevilo_vozovnic
+    id_potovanja = request.forms.id_potovanja
+    id_kabine = request.forms.id_kabine
+    ime = request.forms.ime
+    priimek = request.forms.priimek
+    emso = request.forms.emso
+    try:
+        modeli.dodajVozovnico(stevilo_vozovnic, id_potovanja, id_kabine, ime, priimek)
+        return template('potrdilo_nakupa.html')
+    except Exception as e:
+        print("Zgodila se je napaka {} pri nakupu vozovnice.".format(e))
+    redirect('/potovanje')
 
 
 ############  DODAJANJE  ##############
@@ -76,7 +90,7 @@ def dodajLadjo():
     try:
         modeli.dodajLadjo(ime, leto_izdelave, nosilnost)
     except Exception as e:
-        print("Zgodila se je napaka {} pri dodajanju ladje {}", e, ime)
+        print("Zgodila se je napaka {} pri dodajanju ladje {}".format(e, ime))
     redirect('/administrator/dodaj_ladjo')
 
 
@@ -96,7 +110,7 @@ def dodajNacrtPoti():
     try:
         modeli.dodajNacrt_poti(naziv_potovanja)
     except Exception as e:
-        print("Zgodila se je napaka {} pri dodajanju načrta poti: {}", e, naziv_potovanja)
+        print("Zgodila se je napaka {} pri dodajanju načrta poti: {}".format(e, naziv_potovanja))
     redirect('/administrator/dodaj_nacrt_poti')
 
 
@@ -114,7 +128,7 @@ def dodajPristanisce():
     try:
         modeli.dodajPristanisce(pristanisce)
     except Exception as e:
-        print("Zgodila se je napaka {} pri dodajanju pristanišča {}", e, pristanisce)
+        print("Zgodila se je napaka {} pri dodajanju pristanišča {}".format(e, pristanisce))
     redirect('/administrator/dodaj_pristanisce')
 
 
@@ -126,7 +140,7 @@ def dodajOdsek():
     try:
         modeli.dodajOdsek(id_zacetnega_pristanisca, id_koncnega_pristanisca, cas_potovanja)
     except Exception as e:
-        print("Zgodila se je napaka {} pri dodajanju odseka {}", (e, (id_zacetnega_pristanisca, id_koncnega_pristanisca)))
+        print("Zgodila se je napaka {} pri dodajanju odseka {}".format((e, (id_zacetnega_pristanisca, id_koncnega_pristanisca))))
     redirect('/administrator/dodaj_nacrt_poti')
 
 

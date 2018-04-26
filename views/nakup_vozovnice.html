@@ -9,8 +9,45 @@
         Id kabine = {{id_kabine}}
     </div>
 
+    <div>
+        <form method="POST" action="/administrator/dodaj_vozovnico_v_bazo">
+            <table>
+                <tr>
+                    <td>
+                        Ime:
+                    </td>
+                    <td>
+                        <input type="text" name="ime" value=""/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Priimek:
+                    </td>
+                    <td>
+                        <input type="text" name="priimek" value=""/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        EMŠO:
+                    </td>
+                    <td>
+                        <input type="text" name="emso" value=""/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <input type="submit" value="Potrdi nakup vozovnice" name="dodaj" class="gumb"/>
+                    </td>
+                </tr>
+            </table>
 
-
+        </form>
+    </div>
 
     <form method="get" action="/potovanje">
         <button class="gumb">Nazaj</button>
