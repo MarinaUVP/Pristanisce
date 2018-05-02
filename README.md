@@ -6,6 +6,7 @@ Projekt pri predmetu Podatkovne baze
 Program zaženemo preko datoteke ![spletna_ladja.py](spletna_ladja.py) ali ![zagon.bat](zagon.bat).
 
 ## Možne izboljšave
+- Možnost brisanja in spreminjanja podatkov
 - Olajšano dodajanje odsekov poti
 - Prijava administratorja
 - Registracija potnikov
